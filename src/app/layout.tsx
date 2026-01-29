@@ -27,18 +27,8 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            (function() {
-              const theme = localStorage.getItem('theme');
-              if (theme === 'dark') {
-                document.documentElement.classList.add('dark');
-              }
-            })();
-          `
-        }} />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}>
         <Header />
         {children}
         <Footer />
