@@ -36,28 +36,61 @@ const Auth = () => {
                 </button>
             </div>
 
-            <form action="" className="mt-4 p-6 border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-xl max-w-md mx-auto w-full">
-                <h1 className="font-bold text-[16px]">Fazer login</h1>
-                <p className="text-gray-700 mt-2 mb-5 dark:text-white">Entre com seu E-mail e senha</p>
-                <div>
-                    <label htmlFor="email" className="font-medium text-sm">E-mail</label>
-                    <input required type="email" id="email" name="email" placeholder="seu@email.com" className="w-full py-1.5 px-4 bg-gray-100 rounded-md mt-1 focus:outline-none focus:ring-1 focus:ring-gray-400 dark:bg-gray-400" />
-                </div>
-                <div className="mt-4">
-                    <label htmlFor="password" className="font-medium text-sm">Senha</label>
-                    <input required type="password" id="password" name="password" placeholder="Sua senha" className="w-full py-1.5 px-4 bg-gray-100 rounded-md mt-1 focus:outline-none focus:ring-1 focus:ring-gray-400 dark:bg-gray-400" />
-                </div>
-                <div className="mt-4.5">
-                    <p className="font-medium text-sm">Tipo de Usuário</p>
-                    <div className="mt-1.5 flex items-center">
-                        <input type="radio" name="tipo" id="aluno" value="aluno" onChange={handleChange}/>
-                        <label htmlFor="aluno" className="ml-1">Aluno</label>
-                        <input type="radio" name="tipo" id="professor" value="professor" className="ml-4" onChange={handleChange} />
-                        <label htmlFor="professor" className="ml-1">Professor</label>
+            {activeTab === 'login' ? (
+                <form action="" className="mt-4 p-6 border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-xl max-w-md mx-auto w-full">
+                    <h1 className="font-bold text-[16px]">Fazer login</h1>
+                    <p className="text-gray-700 mt-2 mb-5 dark:text-white">Entre com seu E-mail e senha</p>
+                    <div>
+                        <label htmlFor="email" className="font-medium text-sm">E-mail</label>
+                        <input required type="email" id="email" name="email" placeholder="seu@email.com" className="w-full py-1.5 px-4 bg-gray-100 rounded-md mt-1 focus:outline-none focus:ring-1 focus:ring-gray-400 dark:bg-gray-400" />
                     </div>
-                </div>
-                <button type="submit" className="mt-8 w-full bg-black text-white p-2 rounded-md cursor-pointer hover:bg-gray-800 dark:bg-gray-600 dark:hover:bg-gray-500">Entrar</button>
-            </form>
+                    <div className="mt-4">
+                        <label htmlFor="password" className="font-medium text-sm">Senha</label>
+                        <input required type="password" id="password" name="password" placeholder="Sua senha" className="w-full py-1.5 px-4 bg-gray-100 rounded-md mt-1 focus:outline-none focus:ring-1 focus:ring-gray-400 dark:bg-gray-400" />
+                    </div>
+                    <div className="mt-4.5">
+                        <p className="font-medium text-sm">Tipo de Usuário</p>
+                        <div className="mt-1.5 flex items-center">
+                            <input type="radio" name="tipo" id="aluno" value="aluno" onChange={handleChange}/>
+                            <label htmlFor="aluno" className="ml-1">Aluno</label>
+                            <input type="radio" name="tipo" id="professor" value="professor" className="ml-4" onChange={handleChange} />
+                            <label htmlFor="professor" className="ml-1">Professor</label>
+                        </div>
+                    </div>
+                    <button type="submit" className="mt-8 w-full bg-black text-white p-2 rounded-md cursor-pointer hover:bg-gray-800 dark:bg-gray-600 dark:hover:bg-gray-500">Entrar</button>
+                </form>
+            ) : (
+                <form action="" className="mt-4 p-6 border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-xl max-w-md mx-auto w-full">
+                    <h1 className="font-bold text-[16px]">Criar conta</h1>
+                    <p className="text-gray-700 mt-2 mb-5 dark:text-white">Preencha os dados para se cadastrar</p>
+                    <div>
+                        <label htmlFor="nome" className="font-medium text-sm">Nome completo</label>
+                        <input required type="text" id="nome" name="nome" placeholder="Seu nome completo" className="w-full py-1.5 px-4 bg-gray-100 rounded-md mt-1 focus:outline-none focus:ring-1 focus:ring-gray-400 dark:bg-gray-400" />
+                    </div>
+                    <div className="mt-4">
+                        <label htmlFor="email-cadastro" className="font-medium text-sm">E-mail</label>
+                        <input required type="email" id="email-cadastro" name="email" placeholder="seu@email.com" className="w-full py-1.5 px-4 bg-gray-100 rounded-md mt-1 focus:outline-none focus:ring-1 focus:ring-gray-400 dark:bg-gray-400" />
+                    </div>
+                    <div className="mt-4">
+                        <label htmlFor="password-cadastro" className="font-medium text-sm">Senha</label>
+                        <input required type="password" id="password-cadastro" name="password" placeholder="Sua senha" className="w-full py-1.5 px-4 bg-gray-100 rounded-md mt-1 focus:outline-none focus:ring-1 focus:ring-gray-400 dark:bg-gray-400" />
+                    </div>
+                    <div className="mt-4">
+                        <label htmlFor="confirm-password" className="font-medium text-sm">Confirmar senha</label>
+                        <input required type="password" id="confirm-password" name="confirmPassword" placeholder="Confirme sua senha" className="w-full py-1.5 px-4 bg-gray-100 rounded-md mt-1 focus:outline-none focus:ring-1 focus:ring-gray-400 dark:bg-gray-400" />
+                    </div>
+                    <div className="mt-4.5">
+                        <p className="font-medium text-sm">Tipo de Usuário</p>
+                        <div className="mt-1.5 flex items-center">
+                            <input type="radio" name="tipo-cadastro" id="aluno-cadastro" value="aluno" onChange={handleChange}/>
+                            <label htmlFor="aluno-cadastro" className="ml-1">Aluno</label>
+                            <input type="radio" name="tipo-cadastro" id="professor-cadastro" value="professor" className="ml-4" onChange={handleChange} />
+                            <label htmlFor="professor-cadastro" className="ml-1">Professor</label>
+                        </div>
+                    </div>
+                    <button type="submit" className="mt-8 w-full bg-black text-white p-2 rounded-md cursor-pointer hover:bg-gray-800 dark:bg-gray-600 dark:hover:bg-gray-500">Cadastrar</button>
+                </form>
+            )}
 
             <div className="text-center mt-4">
                 <a href="/" className="whitespace-nowrap rounded-md text-sm font-medium text-primary">Voltar para Home</a>
