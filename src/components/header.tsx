@@ -32,7 +32,7 @@ const Header = () => {
             <div className="flex items-center gap-2">
                 <GraduationCap className="size-12 text-blue-600" />
                 <h1 className="text-2xl font-bold text-start text-gray-900 dark:text-gray-100">
-                    EduPlataforma
+                    Aprendia
                 </h1>
             </div>
             <div>

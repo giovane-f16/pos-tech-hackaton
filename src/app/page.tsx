@@ -7,7 +7,7 @@ export default function Home() {
         <div className="text-center mb-16">
           <h1 className="mb-4 flex items-center justify-center gap-2">
             <GraduationCap className="size-12 text-blue-600" />
-            <span className="text-4xl font-bold dark:text-white">EduPlataforma</span>
+            <span className="text-4xl font-bold dark:text-white">Aprendia</span>
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Plataforma educacional inteligente para envio de trabalhos acadêmicos e auxílio com IA
@@ -17,7 +17,7 @@ export default function Home() {
         <div className="grid md:grid-cols-2 gap-8 mb-16">
             <div className="bg-white dark:bg-gray-800 text-card-foreground flex flex-col gap-6 rounded-xl border border-gray-200 dark:border-gray-700">
                 <div className="@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 pt-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6">
-                    <h4 className="flex items-center gap-2 leading-none dark:text-white">
+                    <h4 className="flex items-center gap-2 leading-none dark:text-white font-bold">
                         <Users className="size-6 text-blue-600" />
                         Para Alunos
                     </h4>
@@ -36,7 +36,7 @@ export default function Home() {
             </div>
             <div className="bg-white dark:bg-gray-800 text-card-foreground flex flex-col gap-6 rounded-xl border border-gray-200 dark:border-gray-700">
                 <div className="@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 pt-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6">
-                    <h4 className="flex items-center gap-2 leading-none dark:text-white">
+                    <h4 className="flex items-center gap-2 leading-none dark:text-white font-bold">
                         <Shield className="size-6 text-green-600" />
                         Para Professores
                     </h4>
@@ -56,7 +56,7 @@ export default function Home() {
         </div>
 
         <div className="bg-blue-600 dark:bg-blue-700 text-white rounded-lg p-8 mb-16">
-          <h2 className="text-center mb-8 text-2xl">Por que usar a EduPlataforma?</h2>
+          <h2 className="text-center mb-8 text-2xl">Por que usar a Aprendia?</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
               <Brain className="size-12 mx-auto mb-4" />
