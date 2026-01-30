@@ -29,11 +29,13 @@ const Header = () => {
 
     return (
         <header className="w-full bg-blue-200 dark:bg-gray-800 p-2 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-                <GraduationCap className="size-12 text-blue-600" />
-                <h1 className="text-2xl font-bold text-start text-gray-900 dark:text-gray-100">
-                    Aprendia
-                </h1>
+            <div className="flex-row items-center gap-2">
+                <a href="/" className="flex items-center gap-2">
+                    <GraduationCap className="size-12 text-blue-600" />
+                    <h1 className="text-2xl font-bold text-start text-gray-900 dark:text-gray-100">
+                        Aprendia
+                    </h1>
+                </a>
             </div>
             <div>
                 <label className="inline-flex items-center cursor-pointer">
