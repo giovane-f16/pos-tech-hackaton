@@ -35,6 +35,15 @@ class DatabaseProvider {
             throw new Error(`Erro ao obter o cliente do banco de dados: ${error}`);
         }
     }
+
+    public getUsersCollection() {
+        try {
+            let usersCollection = this.getClient().then(db => db.collection('Users'));
+            return usersCollection;
+        } catch (error) {
+            throw new Error(`Erro ao obter a coleção de usuários: ${error}`);
+        }
+    }
 }
 
 export default DatabaseProvider;
