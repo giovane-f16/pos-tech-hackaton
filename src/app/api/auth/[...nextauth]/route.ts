@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import DatabaseProvider from "@/providers/db";
 import bcrypt from "bcrypt";
 
-export default NextAuth({
+const handler = NextAuth({
     providers: [
         CredentialsProvider({
             name: "Credentials",
@@ -44,3 +44,5 @@ export default NextAuth({
     },
     secret: process.env.NEXTAUTH_SECRET
 });
+
+export { handler as GET, handler as POST };
