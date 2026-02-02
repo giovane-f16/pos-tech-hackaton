@@ -1,21 +1,20 @@
 import { useSession } from "next-auth/react";
-
+import { signOut } from "next-auth/react";
 export default function User() {
-    const logout = () => {
-        fetch("/api/auth/signout", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(() => {
-            window.location.reload();
-        });
-    }
 
     const { data: session, status } = useSession();
 
     if (status === "loading") {
         return <></>;
+    }
+
+    const logout = () => {
+        let confirm = window.confirm("Tem certeza que deseja sair?");
+        if (confirm) {
+            signOut({
+                callbackUrl: "/"
+            });
+        }
     }
 
     if (session && session.user) {
