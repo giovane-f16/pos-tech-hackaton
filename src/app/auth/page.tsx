@@ -42,7 +42,7 @@ const Auth = () => {
             });
 
             if (result?.ok) {
-                window.location.href = "/";
+                window.location.href = `/${selectedOption}`;
             } else {
                 setErrorMessage("E-mail ou senha inválidos.");
             }
@@ -91,7 +91,7 @@ const Auth = () => {
                     redirect: true,
                     email: userRegisterEmail,
                     password: userRegisterPassword,
-                    callbackUrl: "/"
+                    callbackUrl: `/${userRegisterTipoUsuario}`
                 });
             } else {
                 setErrorMessage(data.message);
