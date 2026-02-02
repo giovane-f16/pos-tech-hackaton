@@ -40,6 +40,22 @@ const handler = NextAuth({
             },
         }),
     ],
+    callbacks: {
+        async jwt({ token, user }) {
+            if (user) {
+                token.id = user.id;
+                token.tipoUsuario = user.tipoUsuario;
+            }
+            return token;
+        },
+        async session({ session, token }) {
+            if (session.user) {
+                session.user.id = token.id;
+                session.user.tipoUsuario = token.tipoUsuario;
+            }
+            return session;
+        }
+    },
     session: {
         strategy: "jwt",
         maxAge: 24 * 60 * 60,
