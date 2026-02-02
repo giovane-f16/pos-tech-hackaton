@@ -27,8 +27,8 @@ const Auth = () => {
 
     const handleLogin = async (event: React.FormEvent) => {
         event.preventDefault();
-        if (!loginEmail || !loginPassword) {
-            setErrorMessage("Preencha e-mail e senha.");
+        if (!loginEmail || !loginPassword || !selectedOption) {
+            setErrorMessage("Preencha todos os campos.");
             return;
         }
 
@@ -39,12 +39,13 @@ const Auth = () => {
                 redirect: false,
                 email: loginEmail,
                 password: loginPassword,
+                tipoUsuario: selectedOption,
             });
 
             if (result?.ok) {
                 window.location.href = `/${selectedOption}`;
             } else {
-                setErrorMessage("E-mail ou senha inválidos.");
+                setErrorMessage(result?.error || "E-mail, senha ou tipo de usuário inválidos.");
             }
         } catch (err) {
             console.error(err);
@@ -91,6 +92,7 @@ const Auth = () => {
                     redirect: true,
                     email: userRegisterEmail,
                     password: userRegisterPassword,
+                    tipoUsuario: userRegisterTipoUsuario,
                     callbackUrl: `/${userRegisterTipoUsuario}`
                 });
             } else {

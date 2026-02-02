@@ -1,3 +1,10 @@
+interface UserData {
+    id: string;
+    nome: string;
+    email: string;
+    tipoUsuario: string;
+}
+
 class AuthProvider {
     public validadePassword(password: string, confirmPassword: string): boolean | string {
         if (password !== confirmPassword) {
