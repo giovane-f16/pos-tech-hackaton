@@ -3,8 +3,8 @@ const Footer = () => {
     const year = data.getFullYear();
 
     return (
-        <footer className="w-full py-4 bg-blue-100 text-center dark:bg-gray-800 mt-auto">
-            <p className="text-gray-900 dark:text-gray-100 font-medium">
+        <footer className="w-full py-4 bg-white-200 text-center dark:bg-gray-800 mt-auto border-t border-gray-200 dark:border-gray-700">
+            <p className="text-gray-900 dark:text-gray-100 font-medium text-[12px]">
                 © {year} Giovane Ferreira. Todos os direitos reservados.
             </p>
         </footer>
