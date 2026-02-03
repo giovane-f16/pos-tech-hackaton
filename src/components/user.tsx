@@ -1,3 +1,4 @@
+import { LogOut } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 export default function User() {
@@ -21,7 +22,8 @@ export default function User() {
         return (
             <div className="flex items-center gap-2">
                 <p className="text-gray-900 dark:text-gray-100">Bem vindo, {session.user.name}!</p>
-                <button className="px-4 py-0 bg-gray-800 rounded hover:bg-gray-700 text-white cursor-pointer" onClick={logout}>
+                <button className="px-4 py-1 bg-gray-50 rounded hover:bg-gray-100 text-gray-900 dark:bg-gray-600 dark:text-gray-100 cursor-pointer flex items-center gap-2 border border-gray-200" onClick={logout}>
+                    <LogOut size={16} />
                     Sair
                 </button>
             </div>
