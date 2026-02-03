@@ -29,15 +29,17 @@ const AlunoPage = () => {
                         <h2 className="text-[18x] font-semibold mb-1.5">Enviar novo Trabalho</h2>
                         <p>Preencha os dados e faça o upload do seu trabalho acadêmico</p>
                         <form className="mt-6 flex flex-col gap-y-2.5">
-                            <label htmlFor="titulo" className="mb-0">Título do Trabalho</label>
-                            <input type="text" placeholder="Ex: Tech Challenge Fase 2" className="border border-gray-300 rounded-md p-2 w-full border-input bg-input-background" />
-                            <label htmlFor="descricao">Descrição</label>
-                            <textarea placeholder="Descreva brevemente o conteúdo do trabalho" className="border border-gray-300 rounded-md p-2 w-full h-32"></textarea>
-                            <input type="file" className="border border-gray-300 rounded-md p-2 w-full" />
-                            <label htmlFor="upload">Arquivo do Trabalho</label>
-                            <input type="file" name="" id="" />
+                            <label htmlFor="titulo" className="mb-0 font-medium">Título do Trabalho</label>
+                            <input type="text" placeholder="Ex: Tech Challenge Fase 2" className="border border-gray-300 rounded-md p-2 w-full border-input bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300" />
+                            <label htmlFor="descricao" className="font-medium">Descrição</label>
+                            <textarea placeholder="Descreva brevemente o conteúdo do trabalho" className="border border-gray-300 rounded-md p-2 w-full border-input bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 h-20"></textarea>
+                            <label htmlFor="upload" className="font-medium">Arquivo do Trabalho</label>
+                            <input type="file" name="" id="" className="border border-gray-300 rounded-md p-2 w-full border-input bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 cursor-pointer" />
                             <p className="text-sm text-gray-500">Formatos aceitos: PDF, DOC, DOCX, TXT (máx. 10MB)</p>
-                            <button type="submit" className="bg-blue-600 text-white rounded-md px-4 py-2 w-32 hover:bg-blue-700">Enviar</button>
+                            <button type="submit" className="bg-black text-white rounded-lg px-4 py-1.5 w-full hover:bg-gray-800 cursor-pointer flex items-center justify-center gap-2 mt-2">
+                                <Upload size={18} />
+                                Enviar
+                            </button>
                         </form>
                     </div>
                 )}
