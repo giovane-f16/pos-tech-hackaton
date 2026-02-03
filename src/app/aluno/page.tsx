@@ -25,8 +25,8 @@ const AlunoPage = () => {
 
             <section className="mt-8">
                 {tab == "upload" && (
-                    <div className="border-gray-200 border-2 rounded-lg p-6">
-                        <h2 className="text-[18x] font-semibold mb-1.5">Enviar novo Trabalho</h2>
+                    <div className="border-gray-200 border rounded-lg p-6">
+                        <h2 className="text-[18px] font-semibold mb-1.5">Enviar novo Trabalho</h2>
                         <p>Preencha os dados e faça o upload do seu trabalho acadêmico</p>
                         <form className="mt-6 flex flex-col gap-y-2.5">
                             <label htmlFor="titulo" className="mb-0 font-medium">Título do Trabalho</label>
@@ -44,9 +44,53 @@ const AlunoPage = () => {
                     </div>
                 )}
                 {tab == "history" && (
-                    <div>
-                        <h2 className="text-2xl font-semibold mb-4">Histórico</h2>
+                    <div className="border-gray-200 border rounded-lg p-6">
+                        <h2 className="text-[18px] font-semibold mb-1.5">Histórico de Envios</h2>
                         <p>Conteúdo do histórico de trabalhos enviados.</p>
+                        <div className="mt-4">
+                            <ul>
+                                <li className="border border-gray-200 p-4 rounded-lg mb-4 flex flex-col gap-2">
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="font-medium text-[18px]">Tech Challenge Fase 1</h3>
+                                        <button className="border border-gray-200 hover:border-gray-400 hover:bg-gray-100 rounded px-4 py-1 cursor-pointer flex items-center justify-center gap-2 font-medium text-[12px]">
+                                            Ver Detalhes
+                                        </button>
+                                    </div>
+                                    <p className="text-sm text-gray-600">Enviado em: 10 de Janeiro de 2024</p>
+                                    <p className="flex items-center gap-2">
+                                        <span className="bg-green-100 px-1.5 py-1 text-[12px] rounded-xl text-green-900">Avaliado</span>
+                                        <span className="font-medium text-green-600 text-[14px]">Nota: 9.5/10</span>
+                                    </p>
+                                </li>
+                                <li className="border border-gray-200 p-4 rounded-lg mb-4 flex flex-col gap-2">
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="font-medium text-[18px]">Relatório de Pesquisa</h3>
+                                        <button className="border border-gray-200 hover:border-gray-400 hover:bg-gray-100 rounded px-4 py-1 cursor-pointer flex items-center justify-center gap-2 font-medium text-[12px]">
+                                            Ver Detalhes
+                                        </button>
+                                    </div>
+                                    <p className="text-sm text-gray-600">Enviado em: 22 de Fevereiro de 2024</p>
+                                    <p className="flex items-center gap-2">
+                                        <span className="bg-yellow-100 px-1.5 py-1 text-[12px] rounded-xl text-yellow-900">
+                                            Aguardando Avaliação
+                                        </span>
+                                    </p>
+                                </li>
+                                <li className="border border-gray-200 p-4 rounded-lg mb-4 flex flex-col gap-2">
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="font-medium text-[18px]">Trabalho Final de Curso</h3>
+                                        <button className="border border-gray-200 hover:border-gray-400 hover:bg-gray-100 rounded px-4 py-1 cursor-pointer flex items-center justify-center gap-2 font-medium text-[12px]">
+                                            Ver Detalhes
+                                        </button>
+                                    </div>
+                                    <p className="text-sm text-gray-600">Enviado em: 15 de Março de 2024</p>
+                                    <p className="flex items-center gap-2">
+                                        <span className="bg-green-100 px-1.5 py-1 text-[12px] rounded-xl text-green-900">Avaliado</span>
+                                        <span className="font-medium text-green-600 text-[14px]">Nota: 9.5/10</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 )}
                 {tab == "assistant" && (
