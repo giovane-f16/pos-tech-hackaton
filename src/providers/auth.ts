@@ -1,20 +1,24 @@
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
 class AuthProvider {
-    public validadePassword(password: string, confirmPassword: string): boolean | string {
-        if (password !== confirmPassword) {
-            return "As senhas não coincidem.";
-        }
+    public async getSession() {
+        return await getServerSession(authOptions);
+    }
 
-        const minLength = 8;
-        const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
-        if (password.length < minLength) {
-            return `A senha precisa ter ao menos ${minLength} caracteres.`;
-        }
+    public async getNome(): Promise<string | null> {
+        const session = await this.getSession();
+        return session?.user?.name || null;
+    }
 
-        if (!specialCharRegex.test(password)) {
-            return "A senha precisa conter ao menos 1 caractere especial.";
-        }
+    public async getEmail(): Promise<string | null> {
+        const session = await this.getSession();
+        return session?.user?.email || null;
+    }
 
-        return true;
+    public async getTipoUsuario(): Promise<string | null> {
+        const session = await this.getSession();
+        return session?.user?.tipoUsuario as string || null;
     }
 }
 

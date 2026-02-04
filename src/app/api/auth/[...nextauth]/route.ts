@@ -1,11 +1,11 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import DatabaseProvider from "@/providers/db";
 import bcrypt from "bcrypt";
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
     providers: [
-        CredentialsProvider({
+         CredentialsProvider({
             name: "Credentials",
             credentials: {
                 email: { label: "Email", type: "email" },
@@ -50,8 +50,8 @@ const handler = NextAuth({
         },
         async session({ session, token }) {
             if (session.user) {
-                session.user.id = token.id;
-                session.user.tipoUsuario = token.tipoUsuario;
+                session.user.id = token.id as string;
+                session.user.tipoUsuario = token.tipoUsuario as string;
             }
             return session;
         }
@@ -65,6 +65,7 @@ const handler = NextAuth({
         maxAge: 24 * 60 * 60
     },
     secret: process.env.NEXTAUTH_SECRET
-});
+};
 
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
