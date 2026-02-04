@@ -1,37 +1,15 @@
 "use client";
 
 import { GraduationCap } from "lucide-react";
-import { useEffect, useState } from "react";
 import User from "@/components/user";
+import ThemeToggle from "@/components/theme-toggle";
 
 interface HeaderProps {
     nome: string | null;
+    theme: string;
 }
 
-const Header = ({ nome }: HeaderProps) => {
-    const [value, setValue] = useState(false);
-
-    const handleActiveDarkMode = () => {
-        if (!value) {
-            localStorage.setItem("theme", "dark");
-            document.documentElement.classList.add("dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-            localStorage.setItem("theme", "light");
-        }
-    }
-
-    useEffect(() => {
-        const theme = localStorage.getItem("theme");
-        if (theme === "dark") {
-            document.documentElement.classList.add("dark");
-            setValue(true);
-        } else {
-            document.documentElement.classList.remove("dark");
-            setValue(false);
-        }
-    },[value]);
-
+const Header = ({ nome, theme }: HeaderProps) => {
     return (
         <header className="w-full bg-white-200 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
             <div className="p-2 flex items-center justify-between container mx-auto">
@@ -45,11 +23,7 @@ const Header = ({ nome }: HeaderProps) => {
                 </div>
                 <div className="flex gap-x-6">
                     {nome && <User nome={nome} />}
-                    <label className="inline-flex items-center cursor-pointer">
-                        <input type="checkbox" checked={value} onChange={(e) => setValue(e.target.checked)} className="sr-only peer" onClick={handleActiveDarkMode}/>
-                        <div className="relative w-9 h-5 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
-                        <span className="select-none ms-3 text-sm font-medium text-gray-900 dark:text-gray-100">Dark Mode</span>
-                    </label>
+                    <ThemeToggle initialTheme={theme} />
                 </div>
             </div>
         </header>
