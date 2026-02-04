@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleCheckBig, History, Brain, Send } from "lucide-react";
+import { CircleCheckBig, History, Brain, Send, CircleAlert } from "lucide-react";
 import { useState } from "react";
 
 const ProfessorPage = () => {
@@ -91,7 +91,7 @@ const ProfessorPage = () => {
                                     <textarea className="w-full border border-gray-300 rounded px-3 py-2 h-24 resize-none bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white"></textarea>
 
                                     <div className="flex gap-x-2">
-                                        <button type="submit" className="mt-4 bg-black text-white px-6 py-1 rounded hover:bg-gray-800 w-3/4">
+                                        <button type="submit" className="mt-4 bg-black text-white px-4 py-1 rounded-lg hover:bg-gray-800 w-3/4">
                                             Enviar Avaliação
                                         </button>
 
@@ -106,8 +106,8 @@ const ProfessorPage = () => {
                 )}
                 {tab == "history" && (
                     <div className="border-gray-200 dark:border-gray-700 border rounded-lg p-6 dark:bg-gray-800">
-                        <h2 className="text-[18px] font-semibold mb-1.5 dark:text-white">Histórico de Envios</h2>
-                        <p className="dark:text-gray-300">Conteúdo do histórico de trabalhos enviados.</p>
+                        <h2 className="text-[18px] font-semibold mb-1.5 dark:text-white">Histórico de Avaliações</h2>
+                        <p className="dark:text-gray-300">Trabalhos já avaliados por você.</p>
                         <div className="mt-4">
                             <ul>
                                 <li className="border border-gray-200 dark:border-gray-700 p-4 rounded-lg mb-4 flex flex-col gap-2 dark:bg-gray-900">
@@ -117,37 +117,11 @@ const ProfessorPage = () => {
                                             Ver Detalhes
                                         </button>
                                     </div>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400">Enviado em: 10 de Janeiro de 2024</p>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">Aluno: João Silva</p>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">Avaliado em: 10 de Janeiro de 2024</p>
                                     <p className="flex items-center gap-2">
-                                        <span className="bg-green-100 dark:bg-green-900 px-1.5 py-1 text-[12px] rounded-xl text-green-900 dark:text-green-100">Avaliado</span>
-                                        <span className="font-medium text-green-600 dark:text-green-400 text-[14px]">Nota: 9.5/10</span>
-                                    </p>
-                                </li>
-                                <li className="border border-gray-200 dark:border-gray-700 p-4 rounded-lg mb-4 flex flex-col gap-2 dark:bg-gray-900">
-                                    <div className="flex items-center justify-between">
-                                        <h3 className="font-medium text-[18px] dark:text-white">Relatório de Pesquisa</h3>
-                                        <button className="border border-gray-200 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded px-4 py-1 cursor-pointer flex items-center justify-center gap-2 font-medium text-[12px] dark:text-gray-200">
-                                            Ver Detalhes
-                                        </button>
-                                    </div>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400">Enviado em: 22 de Fevereiro de 2024</p>
-                                    <p className="flex items-center gap-2">
-                                        <span className="bg-yellow-100 dark:bg-yellow-900 px-1.5 py-1 text-[12px] rounded-xl text-yellow-900 dark:text-yellow-100">
-                                            Aguardando Avaliação
-                                        </span>
-                                    </p>
-                                </li>
-                                <li className="border border-gray-200 dark:border-gray-700 p-4 rounded-lg mb-4 flex flex-col gap-2 dark:bg-gray-900">
-                                    <div className="flex items-center justify-between">
-                                        <h3 className="font-medium text-[18px] dark:text-white">Trabalho Final de Curso</h3>
-                                        <button className="border border-gray-200 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded px-4 py-1 cursor-pointer flex items-center justify-center gap-2 font-medium text-[12px] dark:text-gray-200">
-                                            Ver Detalhes
-                                        </button>
-                                    </div>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400">Enviado em: 15 de Março de 2024</p>
-                                    <p className="flex items-center gap-2">
-                                        <span className="bg-green-100 dark:bg-green-900 px-1.5 py-1 text-[12px] rounded-xl text-green-900 dark:text-green-100">Avaliado</span>
-                                        <span className="font-medium text-green-600 dark:text-green-400 text-[14px]">Nota: 9.5/10</span>
+                                        <span className="font-medium text-[14px]">Nota: 9.5/10</span>
+                                        <span className="px-2 py-0.5 bg-gray-200 rounded text-[12px]">IA: 15%</span>
                                     </p>
                                 </li>
                             </ul>
@@ -156,17 +130,41 @@ const ProfessorPage = () => {
                 )}
                 {tab == "analise" && (
                     <div className="border-gray-200 dark:border-gray-700 border rounded-lg p-6 dark:bg-gray-800">
-                        <h2 className="text-[18px] font-semibold mb-1.5 dark:text-white">Análise de IA</h2>
-                        <p className="dark:text-gray-300">Converse com a IA para obter ajuda com seus trabalhos</p>
-                        <div className="mt-6 border border-gray-300 dark:border-gray-700 rounded-md p-4 h-96 overflow-y-auto bg-gray-50 dark:bg-gray-900">
-                            <p className="text-gray-500 dark:text-gray-400">Área de chat com a IA (em desenvolvimento)</p>
+                        <h2 className="text-[18px] font-semibold mb-1.5 dark:text-white">Ferramenta de Análise de IA</h2>
+                        <p className="dark:text-gray-300">Análise de uso de IA nos trabalhos dos alunos</p>
+                        <div className="p-4 mt-4 bg-blue-50 border border-blue-200 rounded-lg text-blue-800 flex gap-x-2">
+                            <CircleAlert className=""/>
+                            <div>
+                                <h2 className="flex items-center gap-2 mb-2 font-semibold">
+                                    Como funciona a análise de IA
+                                </h2>
+                                <p>Nossa ferramenta analisa o texto do trabalho e identifica padrões característicos de conteúdo gerado por IA, fornecendo uma estimativa percentual do uso de IA.</p>
+                            </div>
                         </div>
-                        <form className="mt-4 flex gap-2">
-                            <input type="text" placeholder="Digite sua pergunta..." className="border border-gray-300 dark:border-gray-600 rounded-md p-2 w-full border-input bg-gray-50 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-500" />
-                            <button type="submit" className="bg-black dark:bg-gray-700 text-white rounded-lg px-4 py-1.0 hover:bg-gray-800 dark:hover:bg-gray-600 cursor-pointer flex items-center justify-center gap-2">
-                                <Send size={18} />
-                            </button>
-                        </form>
+                        <div className="mt-6">
+                            <h3 className="text-[18px] font-medium">Trabalhos recentes</h3>
+                            <div className="mt-4">
+                                <ul>
+                                    <li className="border border-gray-200 dark:border-gray-700 p-4 rounded-lg mb-4 flex flex-col gap-2 dark:bg-gray-900">
+                                        <div className="flex items-center justify-between">
+                                            <h3 className="font-medium text-[18px] dark:text-white">Tech Challenge Fase 1</h3>
+                                            <button className="border border-gray-200 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded px-4 py-1 cursor-pointer flex items-center justify-center gap-2 font-medium text-[12px] dark:text-gray-200">
+                                                Reanalisar
+                                            </button>
+                                        </div>
+                                        <p className="text-sm">Uso de IA detectado</p>
+                                        <div className="relative w-full bg-gray-300 dark:bg-gray-700 rounded-full h-4 overflow-hidden">
+                                            <div
+                                                className="absolute top-0 left-0 h-full bg-gradient-to-r from-yellow-400 to-orange-500 transition-all duration-500 flex items-center justify-center"
+                                                style={{ width: '75%' }}
+                                            >
+                                                <span className="text-white font-semibold text-sm">75%</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 )}
             </section>
