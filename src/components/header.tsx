@@ -1,10 +1,14 @@
-'use client';
+"use client";
 
 import { GraduationCap } from "lucide-react";
 import { useEffect, useState } from "react";
 import User from "@/components/user";
 
-const Header = () => {
+interface HeaderProps {
+    nome: string | null;
+}
+
+const Header = ({ nome }: HeaderProps) => {
     const [value, setValue] = useState(false);
 
     const handleActiveDarkMode = () => {
@@ -40,7 +44,7 @@ const Header = () => {
                     </a>
                 </div>
                 <div className="flex gap-x-6">
-                    <User />
+                    {nome && <User nome={nome} />}
                     <label className="inline-flex items-center cursor-pointer">
                         <input type="checkbox" checked={value} onChange={(e) => setValue(e.target.checked)} className="sr-only peer" onClick={handleActiveDarkMode}/>
                         <div className="relative w-9 h-5 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>

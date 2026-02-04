@@ -1,14 +1,13 @@
+"use client";
+
 import { LogOut } from "lucide-react";
-import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
-export default function User() {
 
-    const { data: session, status } = useSession();
+interface UserClientProps {
+    nome: string;
+}
 
-    if (status === "loading") {
-        return <></>;
-    }
-
+export default function User({ nome }: UserClientProps) {
     const logout = () => {
         let confirm = window.confirm("Tem certeza que deseja sair?");
         if (confirm) {
@@ -18,17 +17,13 @@ export default function User() {
         }
     }
 
-    if (session && session.user) {
-        return (
-            <div className="flex items-center gap-2">
-                <p className="text-gray-900 dark:text-gray-100">Bem vindo, {session.user.name}!</p>
-                <button className="px-4 py-1 bg-gray-50 rounded hover:bg-gray-100 text-gray-900 dark:bg-gray-600 dark:text-gray-100 dark:hover:bg-gray-500 cursor-pointer flex items-center gap-2 border border-gray-200" onClick={logout}>
-                    <LogOut size={16} />
-                    Sair
-                </button>
-            </div>
-        );
-    }
-
-    return <></>;
+    return (
+        <div className="flex items-center gap-2">
+            <p className="text-gray-900 dark:text-gray-100">Bem vindo, {nome}!</p>
+            <button className="px-4 py-1 bg-gray-50 rounded hover:bg-gray-100 text-gray-900 dark:bg-gray-600 dark:text-gray-100 dark:hover:bg-gray-500 cursor-pointer flex items-center gap-2 border border-gray-200" onClick={logout}>
+                <LogOut size={16} />
+                Sair
+            </button>
+        </div>
+    );
 }
