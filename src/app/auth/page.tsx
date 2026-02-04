@@ -4,7 +4,6 @@ import "./style.css";
 import { GraduationCap } from "lucide-react";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import AuthProvider from "@/providers/auth";
 
 const Auth = () => {
     const [selectedOption, setSelectedOption] = useState('');
@@ -17,7 +16,6 @@ const Auth = () => {
     const [userRegisterConfirmPassword, setUserRegisterConfirmPassword] = useState('');
     const [userRegisterTipoUsuario, setUserRegisterTipoUsuario] = useState('');
     const [errorMessage, setErrorMessage] = useState("");
-    const authProvider = new AuthProvider();
     const [loading, setLoading] = useState(false);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +60,7 @@ const Auth = () => {
             return;
         }
 
-        const passWordError = authProvider.validadePassword(userRegisterPassword, userRegisterConfirmPassword);
+        const passWordError = validatePassword(userRegisterPassword, userRegisterConfirmPassword);
         if (typeof passWordError === "string") {
             setErrorMessage(passWordError);
             return;
@@ -103,6 +101,24 @@ const Auth = () => {
         } finally {
             setLoading(false);
         }
+    }
+
+    const validatePassword = (password: string, confirmPassword: string): boolean | string => {
+        if (password !== confirmPassword) {
+            return "As senhas não coincidem.";
+        }
+
+        const minLength = 8;
+        const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+        if (password.length < minLength) {
+            return `A senha precisa ter ao menos ${minLength} caracteres.`;
+        }
+
+        if (!specialCharRegex.test(password)) {
+            return "A senha precisa conter ao menos 1 caractere especial.";
+        }
+
+        return true;
     }
 
   return(
