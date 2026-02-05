@@ -1,10 +1,38 @@
 import { CloudUpload, CalendarDays, Send } from "lucide-react"
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+interface Trabalho {
+    _id: string;
+    titulo: string;
+    descricao: string;
+    dataEntrega: string;
+    dataCriacao: string;
+}
 
 const CriarTrabalho = (): React.ReactElement => {
     const [titulo, setTitulo] = useState("");
     const [descricao, setDescricao] = useState("");
     const [dataEntrega, setDataEntrega] = useState("");
+    const [trabalhos, setTrabalhos] = useState<Trabalho[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    const carregarTrabalhos = async () => {
+        try {
+            const response = await fetch("/api/trabalhos");
+            if (response.ok) {
+                const data = await response.json();
+                setTrabalhos(data);
+            }
+        } catch (error) {
+            console.error("Erro ao carregar trabalhos:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        carregarTrabalhos();
+    }, []);
 
     const handleCriarTrabalho = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -27,10 +55,16 @@ const CriarTrabalho = (): React.ReactElement => {
             setTitulo("");
             setDescricao("");
             setDataEntrega("");
+            carregarTrabalhos();
         } catch (error) {
             alert(`Erro ao criar trabalho: ${error}`);
         }
     }
+
+    const formatarData = (data: string) => {
+        const date = new Date(data);
+        return date.toLocaleDateString('pt-BR');
+    };
 
     return (
         <div className="flex w-full justify-between gap-x-6 mt-4">
@@ -89,31 +123,39 @@ const CriarTrabalho = (): React.ReactElement => {
                 <h2 className="text-[18px] font-semibold mb-1.5 dark:text-white">
                     Trabalhos Criados
                 </h2>
-                <p className="mb-6">1 Trabalhos encaminhados para os alunos</p>
-                <ul className="mt-4">
-                    {/*
-                    Lista de trabalhos criados pelos professores
-                    <li className="mb-4 border border-gray-200 rounded-lg p-4 dark:bg-gray-800 dark:border-gray-700">
-                        <h2 className="text-[18px] font-medium mb-2">
-                            Redação - Tecnologia e Saude
-                        </h2>
-                        <p className="mb-4">
-                            Escrever uma redação sobre os impactos da tecnologia na saúde.
+                <p className="mb-6 dark:text-gray-300">
+                    {loading ? "Carregando..." : `${trabalhos.length} trabalho(s) encaminhado(s) para os alunos`}
+                </p>
+                <ul className="mt-4 max-h-[500px] overflow-y-auto">
+                    {trabalhos.length === 0 && !loading ? (
+                        <p className="text-gray-500 dark:text-gray-400 text-center py-8">
+                            Nenhum trabalho criado ainda
                         </p>
-                        <div className="flex mb-6 text-[14px] gap-x-4">
-                            <p className="flex items-center gap-x-2">
-                                <CloudUpload /> Criado: 29/01/2026
-                            </p>
-                            <p className="flex items-center gap-x-2">
-                                <CalendarDays />
-                                Entrega: 14/02/2026
-                            </p>
-                        </div>
-                        <button className="px-4 py-0.5 border border-gray-200 rounded hover:bg-gray-200 w-full font-medium dark:hover:bg-gray-600">
-                            Ver detalhes
-                        </button>
-                    </li>
-                    */}
+                    ) : (
+                        trabalhos.map((trabalho) => (
+                            <li key={trabalho._id} className="mb-4 border border-gray-200 rounded-lg p-4 dark:bg-gray-800 dark:border-gray-700">
+                                <h2 className="text-[18px] font-medium mb-2 dark:text-white">
+                                    {trabalho.titulo}
+                                </h2>
+                                <p className="mb-4 text-gray-700 dark:text-gray-300">
+                                    {trabalho.descricao}
+                                </p>
+                                <div className="flex mb-4 text-[14px] gap-x-4 text-gray-600 dark:text-gray-400">
+                                    <p className="flex items-center gap-x-2">
+                                        <CloudUpload size={16} />
+                                        Criado: {formatarData(trabalho.dataCriacao)}
+                                    </p>
+                                    <p className="flex items-center gap-x-2">
+                                        <CalendarDays size={16} />
+                                        Entrega: {formatarData(trabalho.dataEntrega)}
+                                    </p>
+                                </div>
+                                <button className="px-4 py-0.5 border border-gray-200 rounded hover:bg-gray-200 w-full font-medium dark:border-gray-600 dark:hover:bg-gray-600 dark:text-gray-200">
+                                    Ver detalhes
+                                </button>
+                            </li>
+                        ))
+                    )}
                 </ul>
             </div>
         </div>
