@@ -1,6 +1,37 @@
 import { CloudUpload, CalendarDays, Send } from "lucide-react"
+import { useState } from "react";
 
 const CriarTrabalho = (): React.ReactElement => {
+    const [titulo, setTitulo] = useState("");
+    const [descricao, setDescricao] = useState("");
+    const [dataEntrega, setDataEntrega] = useState("");
+
+    const handleCriarTrabalho = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch("/api/trabalhos", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ titulo, descricao, dataEntrega }),
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.error || "Erro ao criar trabalho");
+            }
+
+            alert("Trabalho criado com sucesso!");
+            setTitulo("");
+            setDescricao("");
+            setDataEntrega("");
+        } catch (error) {
+            alert(`Erro ao criar trabalho: ${error}`);
+        }
+    }
+
     return (
         <div className="flex w-full justify-between gap-x-6 mt-4">
             <div className="w-1/2 border border-gray-200 rounded-lg p-4 dark:bg-gray-900 dark:border-gray-700">
@@ -10,7 +41,7 @@ const CriarTrabalho = (): React.ReactElement => {
                 <p className="dark:text-gray-300">
                     Crie e encaminhe um trabalho para seus alunos
                 </p>
-                <form action="" className="mt-4">
+                <form onSubmit={handleCriarTrabalho} className="mt-4">
                     <label className="block mb-2 font-medium dark:text-white">
                         Título do Trabalho:
                     </label>
@@ -18,6 +49,9 @@ const CriarTrabalho = (): React.ReactElement => {
                         type="text"
                         placeholder="Ex: Hackaton - Fase 5"
                         className="border border-gray-300 dark:border-gray-600 rounded-md px-2 py-0.5 w-full border-input bg-gray-100 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-500"
+                        value={titulo}
+                        onChange={(e) => setTitulo(e.target.value)}
+                        required
                     />
 
                     <label className="block mt-4 mb-2 font-medium dark:text-white">
@@ -26,6 +60,9 @@ const CriarTrabalho = (): React.ReactElement => {
                     <textarea
                         placeholder="Descreva o que os alunos devem fazer, requisitos, formato, etc.."
                         className="w-full border border-gray-300 rounded px-3 py-2 h-24 resize-none bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        value={descricao}
+                        onChange={(e) => setDescricao(e.target.value)}
+                        required
                     ></textarea>
 
                     <label className="block mt-4 mb-2 font-medium dark:text-white">
@@ -34,6 +71,9 @@ const CriarTrabalho = (): React.ReactElement => {
                     <input
                         type="date"
                         className="border border-gray-300 dark:border-gray-600 rounded-md p-2 w-full border-input bg-gray-100 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-500"
+                        value={dataEntrega}
+                        onChange={(e) => setDataEntrega(e.target.value)}
+                        required
                     />
 
                     <button
@@ -51,6 +91,8 @@ const CriarTrabalho = (): React.ReactElement => {
                 </h2>
                 <p className="mb-6">1 Trabalhos encaminhados para os alunos</p>
                 <ul className="mt-4">
+                    {/*
+                    Lista de trabalhos criados pelos professores
                     <li className="mb-4 border border-gray-200 rounded-lg p-4 dark:bg-gray-800 dark:border-gray-700">
                         <h2 className="text-[18px] font-medium mb-2">
                             Redação - Tecnologia e Saude
@@ -71,6 +113,7 @@ const CriarTrabalho = (): React.ReactElement => {
                             Ver detalhes
                         </button>
                     </li>
+                    */}
                 </ul>
             </div>
         </div>
