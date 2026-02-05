@@ -31,11 +31,9 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
     try {
-        // Aqui você pode adicionar lógica para listar trabalhos
-        return NextResponse.json(
-            { message: "Rota para listar trabalhos" },
-            { status: 200 }
-        );
+        const trabalhoProvider = new TrabalhoProvider();
+        const trabalhos = await trabalhoProvider.getAll();
+        return NextResponse.json(trabalhos, { status: 200 });
     } catch (error) {
         console.error("Erro ao listar trabalhos:", error);
         return NextResponse.json(

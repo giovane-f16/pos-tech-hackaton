@@ -39,6 +39,18 @@ class Trabalho {
             }
         });
     }
+
+    public async getAll(): Promise<interfaceTrabalho[]> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const trabalhosCollection = await this.databaseProvider.getTrabalhosCollection();
+                const trabalhos = await trabalhosCollection.find().toArray();
+                resolve(trabalhos as unknown as interfaceTrabalho[]);
+            } catch (error) {
+                reject(`Erro ao buscar trabalhos: ${error}`);
+            }
+        });
+    }
 }
 
 export default Trabalho;
