@@ -36,7 +36,7 @@ const ProfessorPage = () => {
                                     <p>Enviado em: 24/01/2026</p>
                                     <div className="flex gap-x-2 mt-2">
                                         <button className="bg-black text-white px-4 py-0.5 rounded hover:bg-gray-800">Avaliar</button>
-                                        <button className="px-2 py-0.5 rounded flex items-center hover:bg-gray-200 border border-gray-200 font-medium">
+                                        <button className="px-2 py-0.5 rounded flex items-center hover:bg-gray-200 border border-gray-200 font-medium dark:hover:bg-gray-600">
                                             <Brain size={16} className="inline-block mr-2" />
                                             Análise IA
                                         </button>
@@ -48,7 +48,7 @@ const ProfessorPage = () => {
                                     <p>Enviado em: 24/01/2026</p>
                                     <div className="flex gap-x-2 mt-2">
                                         <button className="bg-black text-white px-4 py-0.5 rounded hover:bg-gray-800">Avaliar</button>
-                                        <button className="px-2 py-0.5 rounded flex items-center hover:bg-gray-200 border border-gray-200 font-medium">
+                                        <button className="px-2 py-0.5 rounded flex items-center hover:bg-gray-200 border border-gray-200 font-medium dark:hover:bg-gray-600">
                                             <Brain size={16} className="inline-block mr-2" />
                                             Análise IA
                                         </button>
@@ -59,7 +59,7 @@ const ProfessorPage = () => {
                         <div className="w-1/2 border border-gray-200 rounded-lg p-4 dark:bg-gray-900 dark:border-gray-700">
                             <h2 className="text-[18px] font-semibold mb-1.5 dark:text-white">Avaliar Trabalhos</h2>
                             <p className="mb-6">Redação - Tecnologia e Saude</p>
-                            <div className="bg-gray-200 p-2 rounded">
+                            <div className="bg-gray-200 p-2 rounded dark:bg-gray-800">
                                 <p><strong>Aluno:</strong> Maria Santos</p>
                                 <p><strong>Data:</strong> 24/01/2026</p>
                             </div>
@@ -91,11 +91,11 @@ const ProfessorPage = () => {
                                     <textarea className="w-full border border-gray-300 rounded px-3 py-2 h-24 resize-none bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white"></textarea>
 
                                     <div className="flex gap-x-2">
-                                        <button type="submit" className="mt-4 bg-black text-white px-4 py-1 rounded-lg hover:bg-gray-800 w-3/4">
+                                        <button type="submit" className="mt-4 bg-black text-white px-4 py-1 rounded hover:bg-gray-800 w-3/4 dark:bg-gray-800 dark:hover:bg-gray-600">
                                             Enviar Avaliação
                                         </button>
 
-                                        <button className="mt-4 px-2 py-1 rounded hover:bg-gray-200 w-1/4 border border-gray-300 dark:border-gray-600 font-medium" type="button">
+                                        <button className="mt-4 px-2 py-1 rounded hover:bg-gray-200 w-1/4 border border-gray-300 dark:border-gray-600  dark:hover:bg-gray-600 font-medium" type="button">
                                             Cancelar
                                         </button>
                                     </div>
@@ -121,7 +121,7 @@ const ProfessorPage = () => {
                                     <p className="text-sm text-gray-600 dark:text-gray-400">Avaliado em: 10 de Janeiro de 2024</p>
                                     <p className="flex items-center gap-2">
                                         <span className="font-medium text-[14px]">Nota: 9.5/10</span>
-                                        <span className="px-2 py-0.5 bg-gray-200 rounded text-[12px]">IA: 15%</span>
+                                        <span className="px-2 py-0.5 bg-gray-200 rounded text-[12px] dark:bg-gray-600">IA: 15%</span>
                                     </p>
                                 </li>
                             </ul>
@@ -132,7 +132,7 @@ const ProfessorPage = () => {
                     <div className="border-gray-200 dark:border-gray-700 border rounded-lg p-6 dark:bg-gray-800">
                         <h2 className="text-[18px] font-semibold mb-1.5 dark:text-white">Ferramenta de Análise de IA</h2>
                         <p className="dark:text-gray-300">Análise de uso de IA nos trabalhos dos alunos</p>
-                        <div className="p-4 mt-4 bg-blue-50 border border-blue-200 rounded-lg text-blue-800 flex gap-x-2">
+                        <div className="p-4 mt-4 bg-blue-50 border border-blue-200 rounded-lg text-blue-800 flex gap-x-2 dark:bg-blue-200">
                             <CircleAlert className=""/>
                             <div>
                                 <h2 className="flex items-center gap-2 mb-2 font-semibold">
