@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
         const body = await request.json();
         const { titulo, descricao, dataEntrega } = body;
 
-        if (!titulo || !descricao || !dataEntrega) {
+        if (!titulo || !descricao || !dataEntrega ) {
             return NextResponse.json(
                 { error: "Todos os campos são obrigatórios" },
                 { status: 400 }
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
         }
 
         const trabalhoProvider = new TrabalhoProvider();
-        await trabalhoProvider.criar({ titulo, descricao, dataEntrega });
+        await trabalhoProvider.criar({ titulo, descricao, dataEntrega, dataCriacao: new Date().toISOString() });
 
         return NextResponse.json(
             { message: "Trabalho criado com sucesso!" },

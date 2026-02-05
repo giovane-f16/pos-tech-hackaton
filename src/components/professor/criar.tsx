@@ -1,4 +1,4 @@
-import { CloudUpload, CalendarDays, Send } from "lucide-react"
+import { CloudUpload, CalendarDays, Send, Trash2, Edit } from "lucide-react"
 import { useState, useEffect } from "react";
 
 interface Trabalho {
@@ -15,6 +15,7 @@ const CriarTrabalho = (): React.ReactElement => {
     const [dataEntrega, setDataEntrega] = useState("");
     const [trabalhos, setTrabalhos] = useState<Trabalho[]>([]);
     const [loading, setLoading] = useState(true);
+    const [editandoId, setEditandoId] = useState<string | null>(null);
 
     const carregarTrabalhos = async () => {
         try {
@@ -38,26 +39,47 @@ const CriarTrabalho = (): React.ReactElement => {
         e.preventDefault();
 
         try {
-            const response = await fetch("/api/trabalhos", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ titulo, descricao, dataEntrega }),
-            });
+            if (editandoId) {
+                // Atualizar trabalho existente
+                const response = await fetch(`/api/trabalhos/${editandoId}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ titulo, descricao, dataEntrega }),
+                });
 
-            if (!response.ok) {
-                const error = await response.json();
-                throw new Error(error.error || "Erro ao criar trabalho");
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || "Erro ao atualizar trabalho");
+                }
+
+                alert("Trabalho atualizado com sucesso!");
+                setEditandoId(null);
+            } else {
+                // Criar novo trabalho
+                const response = await fetch("/api/trabalhos", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ titulo, descricao, dataEntrega }),
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || "Erro ao criar trabalho");
+                }
+
+                alert("Trabalho criado com sucesso!");
             }
 
-            alert("Trabalho criado com sucesso!");
             setTitulo("");
             setDescricao("");
             setDataEntrega("");
             carregarTrabalhos();
         } catch (error) {
-            alert(`Erro ao criar trabalho: ${error}`);
+            alert(`Erro ao processar trabalho: ${error}`);
         }
     }
 
@@ -66,14 +88,50 @@ const CriarTrabalho = (): React.ReactElement => {
         return date.toLocaleDateString('pt-BR');
     };
 
+    const handleDeletarTrabalho = async (id: string, titulo: string) => {
+        if (!confirm(`Tem certeza que deseja deletar o trabalho "${titulo}"?`)) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/trabalhos/${id}`, {
+                method: "DELETE",
+            });
+
+            if (!response.ok) {
+                throw new Error("Erro ao deletar trabalho");
+            }
+
+            alert("Trabalho deletado com sucesso!");
+            carregarTrabalhos();
+        } catch (error) {
+            alert(`Erro ao deletar trabalho: ${error}`);
+        }
+    };
+
+    const handleEditarTrabalho = (trabalho: Trabalho) => {
+        setTitulo(trabalho.titulo);
+        setDescricao(trabalho.descricao);
+        setDataEntrega(trabalho.dataEntrega);
+        setEditandoId(trabalho._id);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleCancelarEdicao = () => {
+        setTitulo("");
+        setDescricao("");
+        setDataEntrega("");
+        setEditandoId(null);
+    };
+
     return (
         <div className="flex w-full justify-between gap-x-6 mt-4">
             <div className="w-1/2 border border-gray-200 rounded-lg p-4 dark:bg-gray-900 dark:border-gray-700">
                 <h2 className="text-[18px] font-semibold mb-1.5 dark:text-white">
-                    Criar Novo Trabalho
+                    {editandoId ? "Editar Trabalho" : "Criar Novo Trabalho"}
                 </h2>
                 <p className="dark:text-gray-300">
-                    Crie e encaminhe um trabalho para seus alunos
+                    {editandoId ? "Atualize as informações do trabalho" : "Crie e encaminhe um trabalho para seus alunos"}
                 </p>
                 <form onSubmit={handleCriarTrabalho} className="mt-4">
                     <label className="block mb-2 font-medium dark:text-white">
@@ -115,8 +173,17 @@ const CriarTrabalho = (): React.ReactElement => {
                         className="mt-6 bg-black text-white px-4 py-2 rounded hover:bg-gray-800 w-full dark:bg-gray-800 dark:hover:bg-gray-600 flex items-center justify-center gap-x-2"
                     >
                         <Send size={16} />
-                        Criar Trabalho
+                        {editandoId ? "Atualizar Trabalho" : "Criar Trabalho"}
                     </button>
+                    {editandoId && (
+                        <button
+                            type="button"
+                            onClick={handleCancelarEdicao}
+                            className="mt-2 bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 w-full dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500"
+                        >
+                            Cancelar Edição
+                        </button>
+                    )}
                 </form>
             </div>
             <div className="w-1/2 border border-gray-200 rounded-lg p-4 dark:bg-gray-900 dark:border-gray-700">
@@ -150,9 +217,22 @@ const CriarTrabalho = (): React.ReactElement => {
                                         Entrega: {formatarData(trabalho.dataEntrega)}
                                     </p>
                                 </div>
-                                <button className="px-4 py-0.5 border border-gray-200 rounded hover:bg-gray-200 w-full font-medium dark:border-gray-600 dark:hover:bg-gray-600 dark:text-gray-200">
-                                    Ver detalhes
-                                </button>
+                                <div className="flex gap-x-2">
+                                    <button
+                                        onClick={() => handleEditarTrabalho(trabalho)}
+                                        className="flex-1 px-4 py-0.5 border border-blue-500 text-blue-500 rounded hover:bg-blue-50 font-medium dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/20 flex items-center justify-center gap-x-2"
+                                    >
+                                        <Edit size={16} />
+                                        Editar
+                                    </button>
+                                    <button
+                                        onClick={() => handleDeletarTrabalho(trabalho._id, trabalho.titulo)}
+                                        className="flex-1 px-4 py-0.5 border border-red-500 text-red-500 rounded hover:bg-red-50 font-medium dark:border-red-400 dark:text-red-400 dark:hover:bg-red-900/20 flex items-center justify-center gap-x-2"
+                                    >
+                                        <Trash2 size={16} />
+                                        Deletar
+                                    </button>
+                                </div>
                             </li>
                         ))
                     )}
