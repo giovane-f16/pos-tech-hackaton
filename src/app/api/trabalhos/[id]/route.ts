@@ -1,6 +1,37 @@
 import { NextRequest, NextResponse } from "next/server";
 import TrabalhoProvider from "@/providers/trabalho";
 
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+    try {
+        const { id } = await params;
+
+        if (!id) {
+            return NextResponse.json(
+                { error: "ID do trabalho é obrigatório" },
+                { status: 400 }
+            );
+        }
+
+        const trabalhoProvider = new TrabalhoProvider();
+        const trabalho = await trabalhoProvider.getById(id);
+
+        if (!trabalho) {
+            return NextResponse.json(
+                { error: "Trabalho não encontrado" },
+                { status: 404 }
+            );
+        }
+
+        return NextResponse.json(trabalho, { status: 200 });
+    } catch (error) {
+        console.error("Erro ao buscar trabalho:", error);
+        return NextResponse.json(
+            { error: "Erro ao buscar trabalho" },
+            { status: 500 }
+        );
+    }
+}
+
 export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
         const { id } = await params;

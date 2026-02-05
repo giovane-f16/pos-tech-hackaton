@@ -72,6 +72,19 @@ class Trabalho {
             }
         });
     }
+
+    public async getById(id: string): Promise<interfaceTrabalho | null> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const trabalhosCollection = await this.databaseProvider.getTrabalhosCollection();
+                const objectId = new ObjectId(id);
+                const trabalho = await trabalhosCollection.findOne({ _id: objectId });
+                resolve(trabalho as unknown as interfaceTrabalho);
+            } catch (error) {
+                reject(`Erro ao buscar trabalho por ID: ${error}`);
+            }
+        });
+    }
 }
 
 export default Trabalho;
