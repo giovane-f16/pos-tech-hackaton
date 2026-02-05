@@ -6,7 +6,7 @@ export default async function Home() {
     const tipoUsuario = await auth.getTipoUsuario();
 
     return (
-        <main className="flex bg-linear-to-b from-blue-50 to-white dark:from-gray-900 dark:to-black">
+        <main className="flex bg-linear-to-b from-blue-50 to-white dark:from-gray-800 dark:to-gray-800">
             <div className="container mx-auto px-4 py-16">
                 <div className="text-center mb-16">
                     <h1 className="mb-4 flex items-center justify-center gap-2">

@@ -122,13 +122,13 @@ const Auth = () => {
     }
 
   return(
-    <main className="h-[75vh] bg-gradient-to-b from-blue-50 to-white flex items-center justify-center p-4 dark:bg-[var(--background)] dark:from-[var(--background)] dark:to-[var(--foreground)]">
+    <main className="h-[75vh] bg-linear-to-b from-blue-50 to-white flex items-center justify-center p-4 dark:from-gray-800 dark:to-gray-800">
         <section className="flex-col items-center justify-center p-4 w-full max-w-md">
             <div className="flex items-center gap-2 mb-2 justify-center">
                 <GraduationCap className="size-12 text-blue-600" />
-                <span className="text-2xl font-bold dark:text-black"> Aprendia</span>
+                <span className="text-2xl font-bold"> Aprendia</span>
             </div>
-            <p className="text-center dark:text-black">Acesse sua conta ou crie uma nova</p>
+            <p className="text-center">Acesse sua conta ou crie uma nova</p>
 
             <div className="flex gap-1 mx-auto mt-4 bg-gray-200 rounded-2xl p-1">
                 <button
