@@ -168,11 +168,11 @@ const UploadDeTrabalho = () => {
                                 </div>
                                 <button
                                     onClick={() => handleSelecionarTrabalho(trabalho)}
-                                    className={`px-4 py-0.5 border rounded w-full font-medium ${
+                                    className={`px-4 py-0.5 border rounded w-full font-medium transition-all ${
                                         trabalhoSelecionado?._id === trabalho._id
                                             ? 'bg-blue-500 text-white border-blue-500 hover:bg-blue-600'
                                             : 'border-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'
-                                    }`}
+                                    } disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:text-gray-500 dark:disabled:text-gray-400 disabled:border-gray-300 dark:disabled:border-gray-600`}
                                     disabled={!validaEntregasPendentes(trabalho._id)}
                                 >
                                     {!validaEntregasPendentes(trabalho._id)
