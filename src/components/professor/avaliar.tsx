@@ -48,7 +48,7 @@ const AvaliarTrabalho = (): React.ReactElement => {
                     <p className="text-sm mb-2 dark:text-gray-300">Uso de IA detectado</p>
                     <div className="relative w-full bg-gray-300 dark:bg-gray-700 rounded-full h-6 overflow-hidden">
                         <div
-                            className="absolute top-0 left-0 h-full bg-gradient-to-r from-yellow-400 to-orange-500 transition-all duration-500 flex items-center justify-center"
+                            className="absolute top-0 left-0 h-full bg-linear-to-r from-yellow-400 to-orange-500 transition-all duration-500 flex items-center justify-center"
                             style={{ width: '75%' }}
                         >
                             <span className="text-white font-semibold text-sm">75%</span>
