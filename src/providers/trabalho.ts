@@ -1,7 +1,8 @@
 import DatabaseProvider from "@/providers/db";
 import { ObjectId } from "mongodb";
 
-interface interfaceTrabalho {
+export interface interfaceTrabalho {
+    _id: string;
     titulo: string;
     descricao: string;
     dataEntrega: string;
@@ -86,5 +87,4 @@ class Trabalho {
         });
     }
 }
-
 export default Trabalho;

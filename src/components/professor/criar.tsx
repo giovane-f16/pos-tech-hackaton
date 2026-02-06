@@ -1,19 +1,13 @@
 import { CloudUpload, CalendarDays, Send, Trash2, Edit } from "lucide-react"
 import { useState, useEffect } from "react";
-
-interface Trabalho {
-    _id: string;
-    titulo: string;
-    descricao: string;
-    dataEntrega: string;
-    dataCriacao: string;
-}
+import { formatarData } from "@/providers/utils";
+import { interfaceTrabalho }from "@/providers/trabalho";
 
 const CriarTrabalho = (): React.ReactElement => {
     const [titulo, setTitulo] = useState("");
     const [descricao, setDescricao] = useState("");
     const [dataEntrega, setDataEntrega] = useState("");
-    const [trabalhos, setTrabalhos] = useState<Trabalho[]>([]);
+    const [trabalhos, setTrabalhos] = useState<interfaceTrabalho[]>([]);
     const [loading, setLoading] = useState(true);
     const [editandoId, setEditandoId] = useState<string | null>(null);
 
@@ -83,11 +77,6 @@ const CriarTrabalho = (): React.ReactElement => {
         }
     }
 
-    const formatarData = (data: string) => {
-        const date = new Date(data);
-        return date.toLocaleDateString('pt-BR');
-    };
-
     const handleDeletarTrabalho = async (id: string, titulo: string) => {
         if (!confirm(`Tem certeza que deseja deletar o trabalho "${titulo}"?`)) {
             return;
@@ -109,7 +98,7 @@ const CriarTrabalho = (): React.ReactElement => {
         }
     };
 
-    const handleEditarTrabalho = (trabalho: Trabalho) => {
+    const handleEditarTrabalho = (trabalho: interfaceTrabalho) => {
         setTitulo(trabalho.titulo);
         setDescricao(trabalho.descricao);
         setDataEntrega(trabalho.dataEntrega);
@@ -193,7 +182,7 @@ const CriarTrabalho = (): React.ReactElement => {
                 <p className="mb-6 dark:text-gray-300">
                     {loading ? "Carregando..." : `${trabalhos.length} trabalho(s) encaminhado(s) para os alunos`}
                 </p>
-                <ul className="mt-4 max-h-[500px] overflow-y-auto">
+                <ul className="mt-4 max-h-125 overflow-y-auto">
                     {trabalhos.length === 0 && !loading ? (
                         <p className="text-gray-500 dark:text-gray-400 text-center py-8">
                             Nenhum trabalho criado ainda
