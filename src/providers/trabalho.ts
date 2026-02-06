@@ -14,7 +14,7 @@ class Trabalho extends DatabaseProvider {
         super();
     }
 
-    public async criar(trabalho: interfaceTrabalho): Promise<void> {
+    public async criar(trabalho: Omit<interfaceTrabalho, "_id">): Promise<void> {
         return new Promise(async (resolve, reject) => {
             try {
                 const trabalhosCollection = await this.getTrabalhosCollection();
