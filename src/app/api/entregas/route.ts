@@ -4,11 +4,11 @@ import EntregaProvider from "@/providers/entrega";
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        const { trabalhoId, alunoId, titulo, conteudo, arquivoUrl, dataEntrega, nota, feedback, porcentagemIa, analiseIa } = body;
+        const { trabalhoId, trabalhoTitulo, alunoId, alunoNome, titulo, conteudo, arquivoUrl, dataEntrega, nota, feedback, porcentagemIa, analiseIa } = body;
 
-        if (!trabalhoId || !alunoId) {
+        if (!trabalhoId || !trabalhoTitulo || !alunoId || !alunoNome) {
             return NextResponse.json(
-                { error: "Necessário fornecer trabalhoId e alunoId" },
+                { error: "Necessário fornecer trabalhoId, trabalhoTitulo, alunoId e alunoNome" },
                 { status: 400 }
             );
         }
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
         }
 
         const entregaProvider = new EntregaProvider();
-        await entregaProvider.criar({ trabalhoId, alunoId, titulo, conteudo, arquivoUrl, dataEntrega, nota, feedback, porcentagemIa, analiseIa });
+        await entregaProvider.criar({ trabalhoId, trabalhoTitulo, alunoId, alunoNome, titulo, conteudo, arquivoUrl, dataEntrega, nota, feedback, porcentagemIa, analiseIa });
 
         return NextResponse.json(
             { message: "Entrega criada com sucesso!" },

@@ -4,7 +4,9 @@ import { ObjectId } from "mongodb";
 export interface Entrega {
     _id: string;
     trabalhoId: string;
+    trabalhoTitulo: string;
     alunoId: string;
+    alunoNome: string;
     titulo: string;
     conteudo: string;
     arquivoUrl: string;
@@ -26,7 +28,9 @@ class EntregaProvider extends DatabaseProvider {
                 const entregasCollection = await this.getEntregasCollection();
                 const novaEntrega = {
                     trabalhoId: new ObjectId(entrega.trabalhoId),
+                    trabalhoTitulo: entrega.trabalhoTitulo,
                     alunoId: new ObjectId(entrega.alunoId),
+                    alunoNome: entrega.alunoNome,
                     titulo: entrega.titulo,
                     conteudo: entrega.conteudo,
                     arquivoUrl: entrega.arquivoUrl,

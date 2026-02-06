@@ -81,7 +81,9 @@ const UploadDeTrabalho = () => {
 
             const entregaData = {
                 trabalhoId: trabalhoSelecionado._id,
+                trabalhoTitulo: trabalhoSelecionado.titulo,
                 alunoId: session.user.id,
+                alunoNome: session.user.name,
                 titulo,
                 conteudo,
                 arquivoUrl,
@@ -102,7 +104,6 @@ const UploadDeTrabalho = () => {
                 setConteudo("");
                 setArquivo(null);
                 setTrabalhoSelecionado(null);
-                // Atualiza a lista de trabalhos pendentes após a entrega
                 await carregarTrabalhosPendentes();
             } else {
                 const error = await response.json();
@@ -172,8 +173,13 @@ const UploadDeTrabalho = () => {
                                             ? 'bg-blue-500 text-white border-blue-500 hover:bg-blue-600'
                                             : 'border-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'
                                     }`}
+                                    disabled={!validaEntregasPendentes(trabalho._id)}
                                 >
-                                    {trabalhoSelecionado?._id === trabalho._id ? 'Selecionado' : 'Selecionar'}
+                                    {!validaEntregasPendentes(trabalho._id)
+                                        ? 'Entregue'
+                                        : trabalhoSelecionado?._id === trabalho._id
+                                        ? 'Selecionado'
+                                        : 'Selecionar'}
                                 </button>
                             </li>
                         ))
