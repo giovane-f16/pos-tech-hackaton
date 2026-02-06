@@ -9,17 +9,15 @@ export interface interfaceTrabalho {
     dataCriacao: string;
 }
 
-class Trabalho {
-    databaseProvider: DatabaseProvider;
-
+class Trabalho extends DatabaseProvider {
     constructor() {
-        this.databaseProvider = new DatabaseProvider();
+        super();
     }
 
     public async criar(trabalho: interfaceTrabalho): Promise<void> {
         return new Promise(async (resolve, reject) => {
             try {
-                const trabalhosCollection = await this.databaseProvider.getTrabalhosCollection();
+                const trabalhosCollection = await this.getTrabalhosCollection();
                 await trabalhosCollection.insertOne({
                     titulo: trabalho.titulo,
                     descricao: trabalho.descricao,
@@ -36,7 +34,7 @@ class Trabalho {
     public async getAll(): Promise<interfaceTrabalho[]> {
         return new Promise(async (resolve, reject) => {
             try {
-                const trabalhosCollection = await this.databaseProvider.getTrabalhosCollection();
+                const trabalhosCollection = await this.getTrabalhosCollection();
                 const trabalhos = await trabalhosCollection.find().toArray();
                 resolve(trabalhos as unknown as interfaceTrabalho[]);
             } catch (error) {
@@ -48,7 +46,7 @@ class Trabalho {
     public async delete(id: string): Promise<void> {
         return new Promise(async (resolve, reject) => {
             try {
-                const trabalhosCollection = await this.databaseProvider.getTrabalhosCollection();
+                const trabalhosCollection = await this.getTrabalhosCollection();
                 const objectId = new ObjectId(id);
                 await trabalhosCollection.deleteOne({ _id: objectId });
                 resolve();
@@ -61,7 +59,7 @@ class Trabalho {
     public async update(id: string, trabalho: Partial<interfaceTrabalho>): Promise<void> {
         return new Promise(async (resolve, reject) => {
             try {
-                const trabalhosCollection = await this.databaseProvider.getTrabalhosCollection();
+                const trabalhosCollection = await this.getTrabalhosCollection();
                 const objectId = new ObjectId(id);
                 await trabalhosCollection.updateOne(
                     { _id: objectId },
@@ -77,7 +75,7 @@ class Trabalho {
     public async getById(id: string): Promise<interfaceTrabalho | null> {
         return new Promise(async (resolve, reject) => {
             try {
-                const trabalhosCollection = await this.databaseProvider.getTrabalhosCollection();
+                const trabalhosCollection = await this.getTrabalhosCollection();
                 const objectId = new ObjectId(id);
                 const trabalho = await trabalhosCollection.findOne({ _id: objectId });
                 resolve(trabalho as unknown as interfaceTrabalho);
