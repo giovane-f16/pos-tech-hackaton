@@ -7,6 +7,7 @@ class DatabaseProvider {
     private connectedClient: Promise<MongoClient>;
     private userCollection: string = process.env.MONGO_DB_USER_COLLECTION || "Users";
     private trabalhosCollection: string = process.env.MONGO_DB_TRABALHOS_COLLECTION || "Trabalhos";
+    private entregasCollection: string = process.env.MONGO_DB_ENTREGAS_COLLECTION || "Entregas";
 
     constructor() {
         this.client = new MongoClient(this.uri, {
@@ -53,6 +54,15 @@ class DatabaseProvider {
             return trabalhosCollection;
         } catch (error) {
             throw new Error(`Erro ao obter a coleção de trabalhos: ${error}`);
+        }
+    }
+
+    public getEntregasCollection() {
+        try {
+            let entregasCollection = this.getClient().then(db => db.collection(this.entregasCollection));
+            return entregasCollection;
+        } catch (error) {
+            throw new Error(`Erro ao obter a coleção de entregas: ${error}`);
         }
     }
 }
