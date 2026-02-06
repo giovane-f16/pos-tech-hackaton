@@ -13,10 +13,14 @@ const UploadDeTrabalho = () => {
     const [conteudo, setConteudo] = useState("");
     const [arquivo, setArquivo] = useState<File | null>(null);
     const [enviando, setEnviando] = useState(false);
+    const [trabalhosPendentesIds, setTrabalhosPendentesIds] = useState<Set<string>>(new Set());
 
     useEffect(() => {
+        if (session?.user?.id) {
+            carregarTrabalhosPendentes();
+        }
         carregarTrabalhos();
-    }, []);
+    }, [session?.user?.id]);
 
     const carregarTrabalhos = async () => {
         try {
@@ -29,6 +33,19 @@ const UploadDeTrabalho = () => {
             console.error("Erro ao carregar trabalhos:", error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const carregarTrabalhosPendentes = async () => {
+        try {
+            const response = await fetch(`/api/entregas/aluno/${session?.user?.id}/pendentes`);
+            if (response.ok) {
+                const trabalhosPendentes = await response.json();
+                const ids = new Set(trabalhosPendentes.map((t: interfaceTrabalho) => t._id) as string[]);
+                setTrabalhosPendentesIds(ids);
+            }
+        } catch (error) {
+            console.error("Erro ao carregar trabalhos pendentes:", error);
         }
     };
 
@@ -85,6 +102,8 @@ const UploadDeTrabalho = () => {
                 setConteudo("");
                 setArquivo(null);
                 setTrabalhoSelecionado(null);
+                // Atualiza a lista de trabalhos pendentes após a entrega
+                await carregarTrabalhosPendentes();
             } else {
                 const error = await response.json();
                 alert(`Erro ao enviar entrega: ${error.error}`);
@@ -103,11 +122,15 @@ const UploadDeTrabalho = () => {
         }
     };
 
+    const validaEntregasPendentes = (trabalhoId: string): boolean => {
+        return trabalhosPendentesIds.has(trabalhoId);
+    };
+
     return (
         <div className="flex gap-x-6">
             <div className="w-1/2 border border-gray-200 rounded-lg p-4 dark:bg-gray-800 dark:border-gray-700">
                 <h2 className="text-[18px] font-semibold mb-1.5 dark:text-white">Trabalhos Pendentes/Realizados</h2>
-                <p className="mb-6">{trabalhos.length} Trabalhos realizado</p>
+                <p className="mb-6">{trabalhos.length} Trabalhos disponíveis</p>
                 <ul className="mt-4">
                     {trabalhos.length === 0 && !loading ? (
                         <p className="text-gray-500 dark:text-gray-400 text-center py-8">
@@ -134,8 +157,12 @@ const UploadDeTrabalho = () => {
                                         Entrega: {formatarData(trabalho.dataEntrega)}
                                     </p>
                                     <p className="flex items-center gap-x-2 font-bold">
-                                        Status: <span className="text-yellow-600 dark:text-yellow-400 font-medium">Pendente</span>
-                                        Status: <span className="text-green-600 dark:text-green-400 font-medium flex items-center">Entregue</span>
+                                        Status:
+                                        {validaEntregasPendentes(trabalho._id) ? (
+                                            <span className="text-yellow-600 dark:text-yellow-400 font-medium">Pendente</span>
+                                        ) : (
+                                            <span className="text-green-600 dark:text-green-400 font-medium flex items-center">Entregue</span>
+                                        )}
                                     </p>
                                 </div>
                                 <button
