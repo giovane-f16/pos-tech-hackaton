@@ -87,7 +87,8 @@ const UploadDeTrabalho = () => {
                 titulo,
                 conteudo,
                 arquivoUrl,
-                dataEntrega: new Date(),
+                dataLimiteDaEntrega: trabalhoSelecionado.dataEntrega,
+                dataRecebimento: new Date(),
             };
 
             const response = await fetch("/api/entregas", {

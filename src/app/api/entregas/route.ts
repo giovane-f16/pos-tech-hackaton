@@ -4,7 +4,7 @@ import entrega from "@/providers/entrega";
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        const { trabalhoId, trabalhoTitulo, alunoId, alunoNome, titulo, conteudo, arquivoUrl, dataEntrega, nota, feedback, porcentagemIa, analiseIa } = body;
+        const { trabalhoId, trabalhoTitulo, alunoId, alunoNome, titulo, conteudo, arquivoUrl, dataLimiteDaEntrega, dataRecebimento, dataAvaliado, nota, feedback, porcentagemIa, analiseIa } = body;
 
         if (!trabalhoId || !trabalhoTitulo || !alunoId || !alunoNome) {
             return NextResponse.json(
@@ -13,14 +13,14 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        if (!titulo || !conteudo || !arquivoUrl || !dataEntrega) {
+        if (!titulo || !conteudo || !arquivoUrl || !dataLimiteDaEntrega || !dataRecebimento) {
             return NextResponse.json(
                 { error: "Dados incompletos para criação da entrega" },
                 { status: 400 }
             );
         }
 
-        await entrega.criar({ trabalhoId, trabalhoTitulo, alunoId, alunoNome, titulo, conteudo, arquivoUrl, dataEntrega, nota, feedback, porcentagemIa, analiseIa });
+        await entrega.criar({ trabalhoId, trabalhoTitulo, alunoId, alunoNome, titulo, conteudo, arquivoUrl, dataLimiteDaEntrega, dataRecebimento, dataAvaliado, nota, feedback, porcentagemIa, analiseIa });
 
         return NextResponse.json(
             { message: "Entrega criada com sucesso!" },

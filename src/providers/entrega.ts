@@ -10,7 +10,9 @@ export interface Entrega {
     titulo: string;
     conteudo: string;
     arquivoUrl: string;
-    dataEntrega: Date;
+    dataLimiteDaEntrega: Date;
+    dataRecebimento: Date;
+    dataAvaliado?: Date;
     nota?: number;
     feedback?: string;
     porcentagemIa?: number;
@@ -30,7 +32,9 @@ class EntregaProvider {
                     titulo: entrega.titulo,
                     conteudo: entrega.conteudo,
                     arquivoUrl: entrega.arquivoUrl,
-                    dataEntrega: entrega.dataEntrega,
+                    dataLimiteDaEntrega: entrega.dataLimiteDaEntrega, // Data definida no Trabalho
+                    dataRecebimento: new Date(),
+                    dataAvaliado: entrega.dataAvaliado,
                     nota: entrega.nota,
                     feedback: entrega.feedback,
                     porcentagemIa: entrega.porcentagemIa,

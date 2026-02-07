@@ -92,11 +92,15 @@ const AvaliarTrabalho = (): React.ReactElement => {
                                     <div className="flex-1">
                                         <h2 className="text-[18px] font-medium dark:text-white">{entrega.trabalhoTitulo}</h2>
                                         <p className="text-gray-700 dark:text-gray-300">Aluno: {entrega.alunoNome}</p>
-                                        <p className="text-gray-600 dark:text-gray-400 text-sm">Enviado em: {formatarData(entrega.dataEntrega)}</p>
-                                        {entrega.nota && (
+                                        <p className="text-gray-600 dark:text-gray-400 text-sm">Enviado em: {formatarData(entrega.dataRecebimento)}</p>
+                                        <p className="text-gray-600 dark:text-gray-400 text-sm">Data limite: {formatarData(entrega.dataLimiteDaEntrega)}</p>
+                                        {entrega.nota && entrega.dataAvaliado && (
+                                            <>
                                             <p className="text-green-600 dark:text-green-400 text-sm font-medium mt-1">
                                                 ✓ Avaliado - Nota: {entrega.nota}
                                             </p>
+                                            <p>Avaliado em {formatarData(entrega.dataAvaliado)}</p>
+                                            </>
                                         )}
                                     </div>
                                     {entregaSelecionada?._id === entrega._id && (
@@ -142,7 +146,7 @@ const AvaliarTrabalho = (): React.ReactElement => {
                     <p className="mb-6">Título: {entregaSelecionada.titulo}</p>
                     <div className="bg-gray-200 p-2 rounded dark:bg-gray-800">
                         <p><strong>Aluno:</strong> {entregaSelecionada.alunoNome}</p>
-                        <p><strong>Data:</strong> {formatarData(entregaSelecionada.dataEntrega)}</p>
+                        <p><strong>Data Recebida:</strong> {formatarData(entregaSelecionada.dataRecebimento)}</p>
                     </div>
                     <div className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
                         <div className="flex items-center gap-2 mb-3">
