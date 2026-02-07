@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import EntregaProvider from "@/providers/entrega";
+import entrega from "@/providers/entrega";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
@@ -12,8 +12,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
             );
         }
 
-        const entregaProvider = new EntregaProvider();
-        const entregas = await entregaProvider.getByIdAluno(id);
+        const entregas = await entrega.getByIdAluno(id);
 
         return NextResponse.json(entregas, { status: 200 });
     } catch (error) {

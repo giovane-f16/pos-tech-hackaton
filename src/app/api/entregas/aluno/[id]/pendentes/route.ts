@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import EntregaProvider from "@/providers/entrega";
-import Trabalho from "@/providers/trabalho";
+import entrega from "@/providers/entrega";
+import trabalho from "@/providers/trabalho";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
@@ -13,11 +13,8 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
             );
         }
 
-        const entregaProvider = new EntregaProvider();
-        const trabalhoProvider = new Trabalho();
-
-        const todosTrabalhos = await trabalhoProvider.getAll();
-        const entregasAluno = await entregaProvider.getByIdAluno(id);
+        const todosTrabalhos = await trabalho.getAll();
+        const entregasAluno = await entrega.getByIdAluno(id);
 
         const trabalhosEntreguesIds = new Set(
             entregasAluno.map(entrega => String(entrega.trabalhoId))

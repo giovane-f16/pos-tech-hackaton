@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import TrabalhoProvider from "@/providers/trabalho";
+import trabalho from "@/providers/trabalho";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
@@ -12,17 +12,16 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
             );
         }
 
-        const trabalhoProvider = new TrabalhoProvider();
-        const trabalho = await trabalhoProvider.getById(id);
+        const trabalhoData = await trabalho.getById(id);
 
-        if (!trabalho) {
+        if (!trabalhoDataData) {
             return NextResponse.json(
                 { error: "Trabalho não encontrado" },
                 { status: 404 }
             );
         }
 
-        return NextResponse.json(trabalho, { status: 200 });
+        return NextResponse.json(trabalhoData, { status: 200 });
     } catch (error) {
         console.error("Erro ao buscar trabalho:", error);
         return NextResponse.json(
@@ -43,8 +42,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
             );
         }
 
-        const trabalhoProvider = new TrabalhoProvider();
-        await trabalhoProvider.delete(id);
+        await trabalho.delete(id);
 
         return NextResponse.json(
             { message: "Trabalho deletado com sucesso!" },
@@ -79,8 +77,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
             );
         }
 
-        const trabalhoProvider = new TrabalhoProvider();
-        await trabalhoProvider.update(id, { titulo, descricao, dataEntrega });
+        await trabalho.update(id, { titulo, descricao, dataEntrega });
 
         return NextResponse.json(
             { message: "Trabalho atualizado com sucesso!" },

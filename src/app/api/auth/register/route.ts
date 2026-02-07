@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import DatabaseProvider from "@/providers/db";
+import database from "@/providers/db";
 import bcrypt from "bcrypt";
 
 export async function POST(request: Request) {
@@ -14,7 +14,6 @@ export async function POST(request: Request) {
             return NextResponse.json({ message: "As senhas não coincidem." }, { status: 400 });
         }
 
-        const database = new DatabaseProvider();
         const usersCollection = await database.getUsersCollection();
 
         const existingUser = await usersCollection.findOne({ email });

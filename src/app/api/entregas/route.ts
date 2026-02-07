@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import EntregaProvider from "@/providers/entrega";
+import entrega from "@/providers/entrega";
 
 export async function POST(request: NextRequest) {
     try {
@@ -20,8 +20,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const entregaProvider = new EntregaProvider();
-        await entregaProvider.criar({ trabalhoId, trabalhoTitulo, alunoId, alunoNome, titulo, conteudo, arquivoUrl, dataEntrega, nota, feedback, porcentagemIa, analiseIa });
+        await entrega.criar({ trabalhoId, trabalhoTitulo, alunoId, alunoNome, titulo, conteudo, arquivoUrl, dataEntrega, nota, feedback, porcentagemIa, analiseIa });
 
         return NextResponse.json(
             { message: "Entrega criada com sucesso!" },
@@ -38,8 +37,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
     try {
-        const entregaProvider = new EntregaProvider();
-        const entregas = await entregaProvider.getAll();
+        const entregas = await entrega.getAll();
         return NextResponse.json(entregas, { status: 200 });
     } catch (error) {
         console.error("Erro ao listar entregas:", error);

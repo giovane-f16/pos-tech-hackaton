@@ -1,6 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import DatabaseProvider from "@/providers/db";
+import database from "@/providers/db";
 import bcrypt from "bcrypt";
 
 export const authOptions: NextAuthOptions = {
@@ -13,7 +13,6 @@ export const authOptions: NextAuthOptions = {
                 tipoUsuario: { label: "Tipo de Usuário", type: "text" }
             },
             async authorize(credentials) {
-                const database = new DatabaseProvider();
                 const usersCollection = await database.getUsersCollection();
                 const user = await usersCollection.findOne({ email: credentials?.email });
 

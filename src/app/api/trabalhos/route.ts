@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import TrabalhoProvider from "@/providers/trabalho";
+import trabalho from "@/providers/trabalho";
 
 export async function POST(request: NextRequest) {
     try {
@@ -13,8 +13,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const trabalhoProvider = new TrabalhoProvider();
-        await trabalhoProvider.criar({ titulo, descricao, dataEntrega, dataCriacao: new Date().toISOString() });
+        await trabalho.criar({ titulo, descricao, dataEntrega, dataCriacao: new Date().toISOString() });
 
         return NextResponse.json(
             { message: "Trabalho criado com sucesso!" },
@@ -31,8 +30,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
     try {
-        const trabalhoProvider = new TrabalhoProvider();
-        const trabalhos = await trabalhoProvider.getAll();
+        const trabalhos = await trabalho.getAll();
         return NextResponse.json(trabalhos, { status: 200 });
     } catch (error) {
         console.error("Erro ao listar trabalhos:", error);

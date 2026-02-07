@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import EntregaProvider from "@/providers/entrega";
+import entregaProvider from "@/providers/entrega";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
@@ -12,17 +12,16 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
             );
         }
 
-        const entregaProvider = new EntregaProvider();
-        const entrega = await entregaProvider.getById(id);
+        const entregaData = await entregaProvider.getById(id);
 
-        if (!entrega) {
+        if (!entregaData) {
             return NextResponse.json(
                 { error: "Entrega não encontrada" },
                 { status: 404 }
             );
         }
 
-        return NextResponse.json(entrega, { status: 200 });
+        return NextResponse.json(entregaData, { status: 200 });
     } catch (error) {
         console.error("Erro ao buscar entrega:", error);
         return NextResponse.json(
@@ -43,7 +42,6 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
             );
         }
 
-        const entregaProvider = new EntregaProvider();
         await entregaProvider.delete(id);
 
         return NextResponse.json(
@@ -71,7 +69,6 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
             );
         }
 
-        const entregaProvider = new EntregaProvider();
         await entregaProvider.update(id, body);
 
         return NextResponse.json(
