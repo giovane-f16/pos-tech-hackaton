@@ -67,4 +67,5 @@ class DatabaseProvider {
     }
 }
 
-export default DatabaseProvider;
+const databaseInstance = new DatabaseProvider();
+export default databaseInstance;

@@ -1,4 +1,4 @@
-import DatabaseProvider from "@/providers/db";
+import database from "@/providers/db";
 import { ObjectId } from "mongodb";
 
 export interface Entrega {
@@ -17,15 +17,11 @@ export interface Entrega {
     analiseIa?: string;
 }
 
-class EntregaProvider extends DatabaseProvider {
-    constructor() {
-        super();
-    }
-
+class EntregaProvider {
     public async criar(entrega: Omit<Entrega, "_id">): Promise<void> {
         return new Promise(async (resolve, reject) => {
             try {
-                const entregasCollection = await this.getEntregasCollection();
+                const entregasCollection = await database.getEntregasCollection();
                 const novaEntrega = {
                     trabalhoId: new ObjectId(entrega.trabalhoId),
                     trabalhoTitulo: entrega.trabalhoTitulo,
@@ -51,7 +47,7 @@ class EntregaProvider extends DatabaseProvider {
     public async getAll(): Promise<Entrega[]> {
         return new Promise(async (resolve, reject) => {
             try {
-                const entregasCollection = await this.getEntregasCollection();
+                const entregasCollection = await database.getEntregasCollection();
                 const entregas = await entregasCollection.find().toArray();
                 resolve(entregas as unknown as Entrega[]);
             } catch (error) {
@@ -63,7 +59,7 @@ class EntregaProvider extends DatabaseProvider {
     public async getById(id: string): Promise<Entrega | null> {
         return new Promise(async (resolve, reject) => {
             try {
-                const entregasCollection = await this.getEntregasCollection();
+                const entregasCollection = await database.getEntregasCollection();
                 const objectId = new ObjectId(id);
                 const entrega = await entregasCollection.findOne({ _id: objectId });
                 resolve(entrega as unknown as Entrega);
@@ -76,7 +72,7 @@ class EntregaProvider extends DatabaseProvider {
     public async getByIdTrabalho(trabalhoId: string): Promise<Entrega[]> {
         return new Promise(async (resolve, reject) => {
             try {
-                const entregasCollection = await this.getEntregasCollection();
+                const entregasCollection = await database.getEntregasCollection();
                 const objectId = new ObjectId(trabalhoId);
                 const entregas = await entregasCollection.find({ trabalhoId: objectId }).toArray();
                 resolve(entregas as unknown as Entrega[]);
@@ -89,7 +85,7 @@ class EntregaProvider extends DatabaseProvider {
     public async getByIdAluno(alunoId: string): Promise<Entrega[]> {
         return new Promise(async (resolve, reject) => {
             try {
-                const entregasCollection = await this.getEntregasCollection();
+                const entregasCollection = await database.getEntregasCollection();
                 const objectId = new ObjectId(alunoId);
                 const entregas = await entregasCollection.find({ alunoId: objectId }).toArray();
                 resolve(entregas as unknown as Entrega[]);
@@ -102,7 +98,7 @@ class EntregaProvider extends DatabaseProvider {
     public async delete(id: string): Promise<void> {
         return new Promise(async (resolve, reject) => {
             try {
-                const entregasCollection = await this.getEntregasCollection();
+                const entregasCollection = await database.getEntregasCollection();
                 const objectId = new ObjectId(id);
                 await entregasCollection.deleteOne({ _id: objectId });
                 resolve();
@@ -115,7 +111,7 @@ class EntregaProvider extends DatabaseProvider {
     public async update(id: string, entrega: Partial<Omit<Entrega, "_id">>): Promise<void> {
         return new Promise(async (resolve, reject) => {
             try {
-                const entregasCollection = await this.getEntregasCollection();
+                const entregasCollection = await database.getEntregasCollection();
                 const objectId = new ObjectId(id);
                 const updateData: any = { ...entrega };
 
@@ -139,4 +135,5 @@ class EntregaProvider extends DatabaseProvider {
     }
 }
 
-export default EntregaProvider;
+const entregaInstance = new EntregaProvider();
+export default entregaInstance;

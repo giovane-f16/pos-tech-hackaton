@@ -1,4 +1,4 @@
-import DatabaseProvider from "@/providers/db";
+import database from "@/providers/db";
 import { ObjectId } from "mongodb";
 
 export interface interfaceTrabalho {
@@ -9,15 +9,11 @@ export interface interfaceTrabalho {
     dataCriacao: string;
 }
 
-class Trabalho extends DatabaseProvider {
-    constructor() {
-        super();
-    }
-
+class Trabalho {
     public async criar(trabalho: Omit<interfaceTrabalho, "_id">): Promise<void> {
         return new Promise(async (resolve, reject) => {
             try {
-                const trabalhosCollection = await this.getTrabalhosCollection();
+                const trabalhosCollection = await database.getTrabalhosCollection();
                 await trabalhosCollection.insertOne({
                     titulo: trabalho.titulo,
                     descricao: trabalho.descricao,
@@ -34,7 +30,7 @@ class Trabalho extends DatabaseProvider {
     public async getAll(): Promise<interfaceTrabalho[]> {
         return new Promise(async (resolve, reject) => {
             try {
-                const trabalhosCollection = await this.getTrabalhosCollection();
+                const trabalhosCollection = await database.getTrabalhosCollection();
                 const trabalhos = await trabalhosCollection.find().toArray();
                 resolve(trabalhos as unknown as interfaceTrabalho[]);
             } catch (error) {
@@ -46,7 +42,7 @@ class Trabalho extends DatabaseProvider {
     public async delete(id: string): Promise<void> {
         return new Promise(async (resolve, reject) => {
             try {
-                const trabalhosCollection = await this.getTrabalhosCollection();
+                const trabalhosCollection = await database.getTrabalhosCollection();
                 const objectId = new ObjectId(id);
                 await trabalhosCollection.deleteOne({ _id: objectId });
                 resolve();
@@ -59,7 +55,7 @@ class Trabalho extends DatabaseProvider {
     public async update(id: string, trabalho: Partial<interfaceTrabalho>): Promise<void> {
         return new Promise(async (resolve, reject) => {
             try {
-                const trabalhosCollection = await this.getTrabalhosCollection();
+                const trabalhosCollection = await database.getTrabalhosCollection();
                 const objectId = new ObjectId(id);
                 await trabalhosCollection.updateOne(
                     { _id: objectId },
@@ -75,7 +71,7 @@ class Trabalho extends DatabaseProvider {
     public async getById(id: string): Promise<interfaceTrabalho | null> {
         return new Promise(async (resolve, reject) => {
             try {
-                const trabalhosCollection = await this.getTrabalhosCollection();
+                const trabalhosCollection = await database.getTrabalhosCollection();
                 const objectId = new ObjectId(id);
                 const trabalho = await trabalhosCollection.findOne({ _id: objectId });
                 resolve(trabalho as unknown as interfaceTrabalho);
@@ -85,4 +81,6 @@ class Trabalho extends DatabaseProvider {
         });
     }
 }
-export default Trabalho;
+
+const trabalhoInstance = new Trabalho();
+export default trabalhoInstance;
