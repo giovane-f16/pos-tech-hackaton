@@ -48,6 +48,7 @@ const AvaliarTrabalho = (): React.ReactElement => {
                 body: JSON.stringify({
                     nota,
                     feedback: comentarios,
+                    dataAvaliado: new Date(),
                     porcentagemIa: 75, // Exemplo fixo, idealmente isso viria da análise de IA real
                     analiseIa: "Alta probabilidade de conteúdo gerado por IA", // Exemplo fixo, idealmente isso viria da análise de IA real
                 }),
@@ -92,14 +93,12 @@ const AvaliarTrabalho = (): React.ReactElement => {
                                     <div className="flex-1">
                                         <h2 className="text-[18px] font-medium dark:text-white">{entrega.trabalhoTitulo}</h2>
                                         <p className="text-gray-700 dark:text-gray-300">Aluno: {entrega.alunoNome}</p>
-                                        <p className="text-gray-600 dark:text-gray-400 text-sm">Enviado em: {formatarData(entrega.dataRecebimento)}</p>
                                         <p className="text-gray-600 dark:text-gray-400 text-sm">Data limite: {formatarData(entrega.dataLimiteDaEntrega)}</p>
                                         {entrega.nota && entrega.dataAvaliado && (
                                             <>
                                             <p className="text-green-600 dark:text-green-400 text-sm font-medium mt-1">
-                                                ✓ Avaliado - Nota: {entrega.nota}
+                                                ✓ Avaliado - Nota: {entrega.nota} <span className="text-black">Avaliado em {formatarData(entrega.dataAvaliado)}</span>
                                             </p>
-                                            <p>Avaliado em {formatarData(entrega.dataAvaliado)}</p>
                                             </>
                                         )}
                                     </div>
