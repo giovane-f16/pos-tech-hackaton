@@ -227,7 +227,7 @@ const AvaliarTrabalho = (): React.ReactElement => {
                                         className={`absolute top-0 left-0 h-full transition-all duration-500 flex items-center justify-center ${
                                             analiseIA.porcentagemIa < 30 ? 'bg-green-500' :
                                             analiseIA.porcentagemIa < 60 ? 'bg-yellow-500' :
-                                            'bg-gradient-to-r from-yellow-400 to-orange-500'
+                                            'bg-linear-to-r from-yellow-400 to-orange-500'
                                         }`}
                                         style={{ width: `${analiseIA.porcentagemIa}%` }}
                                     >
