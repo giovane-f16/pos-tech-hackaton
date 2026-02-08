@@ -9,9 +9,9 @@ class AssistenteIaProvider {
     private endpoint: string;
 
     constructor() {
-        this.apiKey = process.env.IA_API_KEY || "";
-        this.model = process.env.IA_MODEL || "gpt-3.5-turbo";
-        this.endpoint = process.env.IA_ENDPOINT || "https://api.openai.com/v1/chat/completions";
+        this.apiKey = process.env.IA_API_KEY    || "";
+        this.model = process.env.IA_MODEL       || "";
+        this.endpoint = process.env.IA_ENDPOINT || "";
     }
 
     public async enviarMensagem(mensagens: Message[]): Promise<string> {
@@ -19,6 +19,16 @@ class AssistenteIaProvider {
             try {
                 if (!this.apiKey) {
                     reject("API Key não configurada. Configure a variável IA_API_KEY no arquivo .env");
+                    return;
+                }
+
+                if (!this.model) {
+                    reject("Modelo de IA não configurado. Configure a variável IA_MODEL no arquivo .env");
+                    return;
+                }
+
+                if (!this.endpoint) {
+                    reject("Endpoint da API de IA não configurado. Configure a variável IA_ENDPOINT no arquivo .env");
                     return;
                 }
 
