@@ -97,7 +97,7 @@ const AvaliarTrabalho = (): React.ReactElement => {
                                         {entrega.nota && entrega.dataAvaliado && (
                                             <>
                                             <p className="text-green-600 dark:text-green-400 text-sm font-medium mt-1">
-                                                ✓ Avaliado - Nota: {entrega.nota} <span className="text-black">Avaliado em {formatarData(entrega.dataAvaliado)}</span>
+                                                ✓ Avaliado - Nota: {entrega.nota} <span className="text-black dark:text-white">Avaliado em {formatarData(entrega.dataAvaliado)}</span>
                                             </p>
                                             </>
                                         )}
