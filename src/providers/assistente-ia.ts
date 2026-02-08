@@ -9,8 +9,8 @@ class AssistenteIaProvider {
     private endpoint: string;
 
     constructor() {
-        this.apiKey = process.env.IA_API_KEY    || "";
-        this.model = process.env.IA_MODEL       || "";
+        this.apiKey   = process.env.IA_API_KEY  || "";
+        this.model    = process.env.IA_MODEL    || "";
         this.endpoint = process.env.IA_ENDPOINT || "";
     }
 
