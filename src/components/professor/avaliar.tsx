@@ -1,13 +1,21 @@
 import { Entrega } from "@/providers/entrega";
-import { Brain } from "lucide-react"
+import { Brain, Loader2 } from "lucide-react"
 import { useState, useEffect } from "react";
 import { formatarData } from "@/providers/utils";
+
+interface AnaliseIA {
+    porcentagemIa: number;
+    analiseIa: string;
+    confianca: 'baixa' | 'media' | 'alta';
+}
 
 const AvaliarTrabalho = (): React.ReactElement => {
     const [entregaSelecionada, setEntregaSelecionada] = useState<Entrega | null>(null);
     const [nota, setNota] = useState<number>(0);
     const [comentarios, setComentarios] = useState<string>("");
     const [entregas, setEntregas] = useState<Entrega[]>([]);
+    const [analiseIA, setAnaliseIA] = useState<AnaliseIA | null>(null);
+    const [analisando, setAnalisando] = useState<boolean>(false);
 
     const getEntregas = async () => {
         try {
@@ -27,14 +35,56 @@ const AvaliarTrabalho = (): React.ReactElement => {
         if (entregaSelecionada) {
             setNota(entregaSelecionada.nota || 0);
             setComentarios(entregaSelecionada.feedback || "");
+
+            // Carrega análise existente ou realiza nova análise
+            if (entregaSelecionada.porcentagemIa !== undefined && entregaSelecionada.analiseIa) {
+                setAnaliseIA({
+                    porcentagemIa: entregaSelecionada.porcentagemIa,
+                    analiseIa: entregaSelecionada.analiseIa,
+                    confianca: entregaSelecionada.porcentagemIa < 30 ? 'baixa' : entregaSelecionada.porcentagemIa < 60 ? 'media' : 'alta'
+                });
+            } else {
+                // Realiza análise automaticamente
+                analisarConteudo(entregaSelecionada.conteudo);
+            }
         } else {
             setNota(0);
             setComentarios("");
+            setAnaliseIA(null);
         }
     }, [entregaSelecionada]);
 
     const handleSelecionarEntrega = (entrega: Entrega) => {
         setEntregaSelecionada(entrega);
+    }
+
+    const analisarConteudo = async (conteudo: string) => {
+        setAnalisando(true);
+        try {
+            const response = await fetch("/api/analisar-ia", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ conteudo }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Erro ao analisar conteúdo");
+            }
+
+            const data = await response.json();
+            setAnaliseIA(data);
+        } catch (error) {
+            console.error("Erro ao analisar IA:", error);
+            setAnaliseIA({
+                porcentagemIa: 0,
+                analiseIa: "Erro ao analisar conteúdo. Tente novamente.",
+                confianca: 'baixa'
+            });
+        } finally {
+            setAnalisando(false);
+        }
     }
 
     const avaliarEntrega = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -49,8 +99,8 @@ const AvaliarTrabalho = (): React.ReactElement => {
                     nota,
                     feedback: comentarios,
                     dataAvaliado: new Date(),
-                    porcentagemIa: 75, // Exemplo fixo, idealmente isso viria da análise de IA real
-                    analiseIa: "Alta probabilidade de conteúdo gerado por IA", // Exemplo fixo, idealmente isso viria da análise de IA real
+                    porcentagemIa: analiseIA?.porcentagemIa || 0,
+                    analiseIa: analiseIA?.analiseIa || "Análise não realizada",
                 }),
             });
 
@@ -124,10 +174,13 @@ const AvaliarTrabalho = (): React.ReactElement => {
                                     </button>
                                     <button
                                         className="px-2 py-0.5 rounded flex items-center hover:bg-gray-200 border border-gray-200 font-medium dark:hover:bg-gray-600 dark:border-gray-600 dark:text-gray-300"
-                                        onClick={(e) => e.stopPropagation()}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleSelecionarEntrega(entrega);
+                                        }}
                                     >
                                         <Brain size={16} className="inline-block mr-2" />
-                                        Análise IA
+                                        {entrega.porcentagemIa !== undefined ? `${entrega.porcentagemIa}% IA` : "Analisar"}
                                     </button>
                                 </div>
                             </li>
@@ -149,21 +202,54 @@ const AvaliarTrabalho = (): React.ReactElement => {
                     </div>
                     <div className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
                         <div className="flex items-center gap-2 mb-3">
-                            <Brain size={20} className="dark:text-white" />
+                            {analisando ? (
+                                <Loader2 size={20} className="dark:text-white animate-spin" />
+                            ) : (
+                                <Brain size={20} className="dark:text-white" />
+                            )}
                             <p className="font-semibold dark:text-white">Análise de IA</p>
+                            {!analisando && analiseIA && (
+                                <button
+                                    onClick={() => analisarConteudo(entregaSelecionada.conteudo)}
+                                    className="ml-auto text-xs px-2 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400"
+                                >
+                                    Reanalisar
+                                </button>
+                            )}
                         </div>
-                        <p className="text-sm mb-2 dark:text-gray-300">Uso de IA detectado</p>
-                        <div className="relative w-full bg-gray-300 dark:bg-gray-700 rounded-full h-6 overflow-hidden">
-                            <div
-                                className="absolute top-0 left-0 h-full bg-linear-to-r from-yellow-400 to-orange-500 transition-all duration-500 flex items-center justify-center"
-                                style={{ width: '75%' }}
-                            >
-                                <span className="text-white font-semibold text-sm">75%</span>
-                            </div>
-                        </div>
-                        <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">
-                            Alta probabilidade de conteúdo gerado por IA
-                        </p>
+                        {analisando ? (
+                            <p className="text-sm text-gray-600 dark:text-gray-400">Analisando conteúdo...</p>
+                        ) : analiseIA ? (
+                            <>
+                                <p className="text-sm mb-2 dark:text-gray-300">Uso de IA detectado</p>
+                                <div className="relative w-full bg-gray-300 dark:bg-gray-700 rounded-full h-6 overflow-hidden">
+                                    <div
+                                        className={`absolute top-0 left-0 h-full transition-all duration-500 flex items-center justify-center ${
+                                            analiseIA.porcentagemIa < 30 ? 'bg-green-500' :
+                                            analiseIA.porcentagemIa < 60 ? 'bg-yellow-500' :
+                                            'bg-gradient-to-r from-yellow-400 to-orange-500'
+                                        }`}
+                                        style={{ width: `${analiseIA.porcentagemIa}%` }}
+                                    >
+                                        <span className="text-white font-semibold text-sm">{analiseIA.porcentagemIa}%</span>
+                                    </div>
+                                </div>
+                                <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">
+                                    {analiseIA.analiseIa}
+                                </p>
+                                <div className="mt-2">
+                                    <span className={`text-xs px-2 py-1 rounded ${
+                                        analiseIA.confianca === 'baixa' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
+                                        analiseIA.confianca === 'media' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300' :
+                                        'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
+                                    }`}>
+                                        Confiança: {analiseIA.confianca}
+                                    </span>
+                                </div>
+                            </>
+                        ) : (
+                            <p className="text-sm text-gray-600 dark:text-gray-400">Análise não disponível</p>
+                        )}
                     </div>
 
                     <div>
