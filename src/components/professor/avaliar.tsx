@@ -180,7 +180,7 @@ const AvaliarTrabalho = (): React.ReactElement => {
                                         }}
                                     >
                                         <Brain size={16} className="inline-block mr-2" />
-                                        {entrega.porcentagemIa !== undefined ? `${entrega.porcentagemIa}% IA` : "Analisar"}
+                                        {entrega.porcentagemIa !== null ? `${entrega.porcentagemIa}% IA` : "Analisar"}
                                     </button>
                                 </div>
                             </li>
