@@ -54,6 +54,7 @@ const UploadDeTrabalho = () => {
         setTitulo(trabalho.titulo);
         setConteudo("");
         setArquivo(null);
+        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     };
 
     const handleCriarEntrega = async (e: React.FormEvent) => {
