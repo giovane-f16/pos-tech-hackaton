@@ -11,18 +11,20 @@ const AlunoPage = () => {
 
     return (
         <main className="container mx-auto px-4 py-8">
-            <section className="flex justify-between px-4 py-1.5 rounded-4xl bg-gray-200 dark:bg-gray-800">
-                <button className={`flex items-center cursor-pointer gap-x-3 font-medium px-4 rounded-2xl w-1/3 justify-center dark:text-gray-200 ${tab == "upload" ? "bg-white dark:bg-gray-700 dark:text-white" : ""}`} onClick={() => {setTab("upload")}}>
-                    <Upload size={18} />
-                    Enviar Trabalho
+            <section className="flex flex-wrap justify-between gap-2 px-2 md:px-4 py-1.5 rounded-4xl bg-gray-200 dark:bg-gray-800">
+                <button className={`flex items-center cursor-pointer gap-x-2 font-medium px-2 md:px-4 py-2 rounded-2xl flex-1 min-w-25 justify-center dark:text-gray-200 text-sm md:text-base ${tab == "upload" ? "bg-white dark:bg-gray-700 dark:text-white" : ""}`} onClick={() => {setTab("upload")}}>
+                    <Upload size={16} className="md:size-4.5" />
+                    <span className="hidden sm:inline">Enviar Trabalho</span>
+                    <span className="sm:hidden">Enviar</span>
                 </button>
-                <button className={`flex items-center cursor-pointer gap-x-3 font-medium px-4 rounded-2xl w-1/3 justify-center dark:text-gray-200 ${tab == "historico" ? "bg-white dark:bg-gray-700 dark:text-white" : ""}`} onClick={() => {setTab("historico")}}>
-                    <History size={18} />
+                <button className={`flex items-center cursor-pointer gap-x-2 font-medium px-2 md:px-4 py-2 rounded-2xl flex-1 min-w-25 justify-center dark:text-gray-200 text-sm md:text-base ${tab == "historico" ? "bg-white dark:bg-gray-700 dark:text-white" : ""}`} onClick={() => {setTab("historico")}}>
+                    <History size={16} className="md:size-4.5" />
                     Histórico
                 </button>
-                <button className={`flex items-center cursor-pointer gap-x-3 font-medium px-4 rounded-2xl w-1/3 justify-center dark:text-gray-200 ${tab == "assistente-ia" ? "bg-white dark:bg-gray-700 dark:text-white" : ""}`} onClick={() => {setTab("assistente-ia")}}>
-                    <Brain size={18} />
-                    Assistente de IA
+                <button className={`flex items-center cursor-pointer gap-x-2 font-medium px-2 md:px-4 py-2 rounded-2xl flex-1 min-w-25 justify-center dark:text-gray-200 text-sm md:text-base ${tab == "assistente-ia" ? "bg-white dark:bg-gray-700 dark:text-white" : ""}`} onClick={() => {setTab("assistente-ia")}}>
+                    <Brain size={16} className="md:size-4.5" />
+                    <span className="hidden sm:inline">Assistente de IA</span>
+                    <span className="sm:hidden">IA</span>
                 </button>
             </section>
 

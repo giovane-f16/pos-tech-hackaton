@@ -144,10 +144,10 @@ const UploadDeTrabalho = () => {
     };
 
     return (
-        <div className="flex gap-x-6">
-            <div className="w-1/2 border border-gray-200 rounded-lg p-4 dark:bg-gray-800 dark:border-gray-700">
-                <h2 className="text-[18px] font-semibold mb-1.5 dark:text-white">Trabalhos Pendentes/Realizados</h2>
-                <p className="mb-6">{trabalhos.length} Trabalhos disponíveis</p>
+        <div className="flex flex-col md:flex-row gap-6">
+            <div className="w-full md:w-1/2 border border-gray-200 rounded-lg p-4 dark:bg-gray-800 dark:border-gray-700">
+                <h2 className="text-[16px] md:text-[18px] font-semibold mb-1.5 dark:text-white">Trabalhos Pendentes/Realizados</h2>
+                <p className="mb-6 text-sm md:text-base">{trabalhos.length} Trabalhos disponíveis</p>
                 <ul className="mt-4">
                     {trabalhos.length === 0 && !loading ? (
                         <p className="text-gray-500 dark:text-gray-400 text-center py-8">
@@ -157,15 +157,15 @@ const UploadDeTrabalho = () => {
                         trabalhos.map((trabalho) => (
                             <li
                                 key={trabalho._id}
-                                className={`mb-4 border rounded-lg p-4 dark:bg-gray-900 ${
+                                className={`mb-4 border rounded-lg p-3 md:p-4 dark:bg-gray-900 ${
                                     trabalhoSelecionado?._id === trabalho._id
                                         ? 'border-blue-500 dark:border-blue-400'
                                         : 'border-gray-200 dark:border-gray-700'
                                 }`}
                             >
-                                <h2 className="text-[18px] font-medium mb-2">{trabalho.titulo}</h2>
-                                <p className="mb-4">{trabalho.descricao}</p>
-                                <div className="flex mb-6 text-[14px] gap-x-4">
+                                <h2 className="text-[16px] md:text-[18px] font-medium mb-2">{trabalho.titulo}</h2>
+                                <p className="mb-4 text-sm md:text-base">{trabalho.descricao}</p>
+                                <div className="flex flex-col md:flex-row mb-4 md:mb-6 text-[13px] md:text-[14px] gap-2 md:gap-x-4">
                                     <p className="flex items-center gap-x-2">
                                         <CloudUpload /> Criado: {formatarData(trabalho.dataCriacao)}
                                     </p>
@@ -202,9 +202,9 @@ const UploadDeTrabalho = () => {
                     )}
                 </ul>
             </div>
-            <div className="border-gray-200 dark:border-gray-700 border rounded-lg p-6 dark:bg-gray-800 w-1/2">
-                <h2 className="text-[18px] font-semibold mb-1.5 dark:text-white">Enviar novo Trabalho</h2>
-                <p className="dark:text-gray-300">Preencha os dados e faça o upload do seu trabalho acadêmico</p>
+            <div className="w-full md:w-1/2 border-gray-200 dark:border-gray-700 border rounded-lg p-4 md:p-6 dark:bg-gray-800">
+                <h2 className="text-[16px] md:text-[18px] font-semibold mb-1.5 dark:text-white">Enviar novo Trabalho</h2>
+                <p className="dark:text-gray-300 text-sm md:text-base">Preencha os dados e faça o upload do seu trabalho acadêmico</p>
                 {!trabalhoSelecionado && (
                     <div className="mt-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg">
                         <p className="text-yellow-800 dark:text-yellow-200 text-sm">
@@ -214,7 +214,7 @@ const UploadDeTrabalho = () => {
                 )}
                 {trabalhoSelecionado && (
                     <form onSubmit={handleCriarEntrega} className="mt-6 flex flex-col gap-y-2.5">
-                        <label htmlFor="titulo" className="mb-0 font-medium dark:text-gray-200">Título do Trabalho</label>
+                        <label htmlFor="titulo" className="mb-0 font-medium dark:text-gray-200 text-sm md:text-base">Título do Trabalho</label>
                         <input
                             type="text"
                             id="titulo"
@@ -225,7 +225,7 @@ const UploadDeTrabalho = () => {
                             disabled={!trabalhoSelecionado}
                             required
                         />
-                        <label htmlFor="descricao" className="font-medium dark:text-gray-200">Descrição</label>
+                        <label htmlFor="descricao" className="font-medium dark:text-gray-200 text-sm md:text-base">Descrição</label>
                         <textarea
                             id="descricao"
                             value={conteudo}
@@ -235,7 +235,7 @@ const UploadDeTrabalho = () => {
                             disabled={!trabalhoSelecionado}
                             required
                         ></textarea>
-                        <label htmlFor="upload" className="font-medium dark:text-gray-200">Arquivo do Trabalho</label>
+                        <label htmlFor="upload" className="font-medium dark:text-gray-200 text-sm md:text-base">Arquivo do Trabalho</label>
                         <input
                             type="file"
                             id="upload"
