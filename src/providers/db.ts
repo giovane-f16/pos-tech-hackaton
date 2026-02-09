@@ -1,4 +1,4 @@
-import { MongoClient, ServerApiVersion } from 'mongodb';
+import { MongoClient, ServerApiVersion, GridFSBucket } from "mongodb";
 
 class DatabaseProvider {
     private uri: string = process.env.MONGO_DB_URI || "";
@@ -63,6 +63,15 @@ class DatabaseProvider {
             return entregasCollection;
         } catch (error) {
             throw new Error(`Erro ao obter a coleção de entregas: ${error}`);
+        }
+    }
+
+    public async getGridFSBucket(bucketName: string = "uploads"): Promise<GridFSBucket> {
+        try {
+            const db = await this.getClient();
+            return new GridFSBucket(db, { bucketName });
+        } catch (error) {
+            throw new Error(`Erro ao obter GridFS bucket: ${error}`);
         }
     }
 }
