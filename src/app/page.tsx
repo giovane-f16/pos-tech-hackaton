@@ -1,5 +1,11 @@
 import { GraduationCap, Users, Shield, Brain } from "lucide-react";
 import AuthProvider from "@/providers/auth";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Aprendia",
+    description: "Plataforma educacional inteligente para envio de trabalhos acadêmicos e auxílio com IA",
+};
 
 export default async function Home() {
     const auth = new AuthProvider();
