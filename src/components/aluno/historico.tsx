@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { Entrega } from "@/providers/entrega";
 import { formatarData } from "@/providers/utils";
+import { FileText, ExternalLink } from "lucide-react";
 
 const Historico = () => {
     const { data: session } = useSession();
@@ -51,7 +52,24 @@ const Historico = () => {
                         {entregas.map((entrega) => (
                             <li key={entrega._id} className="border border-gray-200 dark:border-gray-700 p-4 rounded-lg mb-4 flex flex-col gap-2 dark:bg-gray-900">
                                 <div className="flex items-center justify-between">
-                                    <h3 className="font-medium text-[18px] dark:text-white">{entrega.trabalhoTitulo}</h3>
+                                    <h3 className="font-medium text-[18px] dark:text-white flex items-center gap-2">
+                                        {entrega.trabalhoTitulo}
+                                        {entrega.arquivoUrl && (
+                                            <FileText size={16} className="text-blue-600 dark:text-blue-400" />
+                                        )}
+                                    </h3>
+                                    {entrega.arquivoUrl && (
+                                        <a
+                                            href={entrega.arquivoUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="border border-blue-500 dark:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded px-3 py-1 cursor-pointer flex items-center justify-center gap-1.5 font-medium text-[12px] text-blue-600 dark:text-blue-400"
+                                        >
+                                            <FileText size={14} />
+                                            Ver Arquivo
+                                            <ExternalLink size={12} />
+                                        </a>
+                                    )}
                                 </div>
                                 <p className="text-sm text-gray-700 dark:text-gray-300">Título: {entrega.titulo}</p>
                                 <p className="text-sm text-gray-600 dark:text-gray-400">Enviado em: {formatarData(entrega.dataRecebimento)}</p>

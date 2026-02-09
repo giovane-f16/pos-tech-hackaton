@@ -1,4 +1,4 @@
-import { CircleAlert, Loader2 } from "lucide-react";
+import { CircleAlert, Loader2, FileText, ExternalLink } from "lucide-react";
 import { useEffect, useState } from "react";
 import { formatarData } from "@/providers/utils";
 
@@ -10,6 +10,7 @@ interface EntregaComAnalise {
     analiseIa?: string;
     dataAvaliado?: Date;
     dataRecebimento: Date;
+    arquivoUrl?: string;
 }
 
 const AnalisarComIA = (): React.ReactElement => {
@@ -120,7 +121,12 @@ const AnalisarComIA = (): React.ReactElement => {
                                 <li key={entrega._id} className="border border-gray-200 dark:border-gray-700 p-4 rounded-lg mb-4 flex flex-col gap-2 dark:bg-gray-900">
                                     <div className="flex items-center justify-between">
                                         <div className="flex-1">
-                                            <h3 className="font-medium text-[18px] dark:text-white">{entrega.trabalhoTitulo}</h3>
+                                            <h3 className="font-medium text-[18px] dark:text-white flex items-center gap-2">
+                                                {entrega.trabalhoTitulo}
+                                                {entrega.arquivoUrl && (
+                                                    <FileText size={16} className="text-blue-600 dark:text-blue-400" />
+                                                )}
+                                            </h3>
                                             <p className="text-sm text-gray-600 dark:text-gray-400">
                                                 Aluno: {entrega.alunoNome}
                                             </p>
@@ -130,20 +136,34 @@ const AnalisarComIA = (): React.ReactElement => {
                                                 </p>
                                             )}
                                         </div>
-                                        <button
-                                            className="border border-gray-200 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded px-4 py-1 cursor-pointer flex items-center justify-center gap-2 font-medium text-[12px] dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                                            onClick={() => reanalisar(entrega._id)}
-                                            disabled={reanalisando === entrega._id}
-                                        >
-                                            {reanalisando === entrega._id ? (
-                                                <>
-                                                    <Loader2 size={14} className="animate-spin" />
-                                                    Analisando...
-                                                </>
-                                            ) : (
-                                                "Reanalisar"
+                                        <div className="flex gap-2">
+                                            {entrega.arquivoUrl && (
+                                                <a
+                                                    href={entrega.arquivoUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="border border-blue-500 dark:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded px-3 py-1 cursor-pointer flex items-center justify-center gap-1.5 font-medium text-[12px] text-blue-600 dark:text-blue-400"
+                                                >
+                                                    <FileText size={14} />
+                                                    Ver Arquivo
+                                                    <ExternalLink size={12} />
+                                                </a>
                                             )}
-                                        </button>
+                                            <button
+                                                className="border border-gray-200 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded px-4 py-1 cursor-pointer flex items-center justify-center gap-2 font-medium text-[12px] dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                onClick={() => reanalisar(entrega._id)}
+                                                disabled={reanalisando === entrega._id}
+                                            >
+                                                {reanalisando === entrega._id ? (
+                                                    <>
+                                                        <Loader2 size={14} className="animate-spin" />
+                                                        Analisando...
+                                                    </>
+                                                ) : (
+                                                    "Reanalisar"
+                                                )}
+                                            </button>
+                                        </div>
                                     </div>
                                     <p className="text-sm dark:text-gray-300">Uso de IA detectado</p>
                                     <div className="relative w-full bg-gray-300 dark:bg-gray-700 rounded-full h-4 overflow-hidden">

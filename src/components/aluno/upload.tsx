@@ -77,7 +77,22 @@ const UploadDeTrabalho = () => {
         setEnviando(true);
 
         try {
-            const arquivoUrl = `uploads/${arquivo.name}`; // @toDo: Implementar storage
+            const uploadFormData = new FormData();
+            uploadFormData.append("file", arquivo);
+
+            const uploadResponse = await fetch("/api/files", {
+                method: "POST",
+                body: uploadFormData,
+            });
+
+            if (!uploadResponse.ok) {
+                const uploadError = await uploadResponse.json();
+                alert(`Erro ao fazer upload do arquivo: ${uploadError.error}`);
+                return;
+            }
+
+            const uploadData = await uploadResponse.json();
+            const arquivoUrl = `/api/files/${uploadData.fileId}`;
 
             const entregaData = {
                 trabalhoId: trabalhoSelecionado._id,

@@ -1,5 +1,5 @@
 import { Entrega } from "@/providers/entrega";
-import { Brain, Loader2 } from "lucide-react"
+import { Brain, Loader2, FileText, ExternalLink } from "lucide-react"
 import { useState, useEffect } from "react";
 import { formatarData } from "@/providers/utils";
 
@@ -141,7 +141,12 @@ const AvaliarTrabalho = (): React.ReactElement => {
                             >
                                 <div className="flex items-start justify-between">
                                     <div className="flex-1">
-                                        <h2 className="text-[18px] font-medium dark:text-white">{entrega.trabalhoTitulo}</h2>
+                                        <h2 className="text-[18px] font-medium dark:text-white flex items-center gap-2">
+                                            {entrega.trabalhoTitulo}
+                                            {entrega.arquivoUrl && (
+                                                <FileText size={16} className="text-blue-600 dark:text-blue-400" />
+                                            )}
+                                        </h2>
                                         <p className="text-gray-700 dark:text-gray-300">Aluno: {entrega.alunoNome}</p>
                                         <p className="text-gray-600 dark:text-gray-400 text-sm">Data limite: {formatarData(entrega.dataLimiteDaEntrega)}</p>
                                         {entrega.nota && entrega.dataAvaliado && (
@@ -199,6 +204,21 @@ const AvaliarTrabalho = (): React.ReactElement => {
                     <div className="bg-gray-200 p-2 rounded dark:bg-gray-800">
                         <p><strong>Aluno:</strong> {entregaSelecionada.alunoNome}</p>
                         <p><strong>Data Recebida:</strong> {formatarData(entregaSelecionada.dataRecebimento)}</p>
+                        {entregaSelecionada.arquivoUrl && (
+                            <div className="mt-2 pt-2 border-t border-gray-300 dark:border-gray-700">
+                                <p className="mb-2"><strong>Arquivo Enviado:</strong></p>
+                                <a
+                                    href={entregaSelecionada.arquivoUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-sm font-medium"
+                                >
+                                    <FileText size={16} />
+                                    Visualizar Arquivo
+                                    <ExternalLink size={14} />
+                                </a>
+                            </div>
+                        )}
                     </div>
                     <div className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
                         <div className="flex items-center gap-2 mb-3">
