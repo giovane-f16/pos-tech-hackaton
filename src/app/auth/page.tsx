@@ -122,11 +122,11 @@ const Auth = () => {
     }
 
   return(
-    <main className="h-[75vh] bg-linear-to-b from-blue-50 to-white flex items-center justify-center p-4 dark:from-gray-800 dark:to-gray-800">
+    <main className="md:h-[75vh] bg-linear-to-b from-blue-50 to-white flex items-center justify-center p-4 dark:from-gray-800 dark:to-gray-800">
         <section className="flex-col items-center justify-center p-4 w-full max-w-md">
             <div className="flex items-center gap-2 mb-2 justify-center">
                 <GraduationCap className="size-12 text-blue-600" />
-                <span className="text-2xl font-bold"> Aprendia</span>
+                <span className="hidden md:flex text-2xl font-bold"> Aprendia</span>
             </div>
             <p className="text-center">Acesse sua conta ou crie uma nova</p>
 
