@@ -169,7 +169,7 @@ class AnalisarIaProvider {
      * Analisa um texto e retorna a probabilidade de uso de IA
      */
     public async analisar(conteudo: string): Promise<AnaliseIA> {
-        if (!conteudo || conteudo.trim().length < 50) {
+        if (!conteudo || conteudo.trim().length < 25) {
             return {
                 porcentagemIa: 0,
                 analiseIa: "Texto muito curto para análise confiável",
