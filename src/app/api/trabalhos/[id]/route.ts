@@ -14,7 +14,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
         const trabalhoData = await trabalho.getById(id);
 
-        if (!trabalhoDataData) {
+        if (!trabalhoData) {
             return NextResponse.json(
                 { error: "Trabalho não encontrado" },
                 { status: 404 }
