@@ -12,22 +12,24 @@ const ProfessorPage = () => {
 
     return (
         <main className="container mx-auto px-4 py-8">
-            <section className="flex justify-between px-4 py-1.5 rounded-4xl bg-gray-200 dark:bg-gray-800">
-                <button className={`flex items-center cursor-pointer gap-x-3 font-medium px-4 rounded-2xl w-1/3 justify-center dark:text-gray-200 ${tab == "criar" ? "bg-white dark:bg-gray-700 dark:text-white" : ""}`} onClick={() => {setTab("criar")}}>
-                    <CircleCheckBig size={18} />
-                    Criar Trabalho
+            <section className="flex flex-wrap justify-between gap-2 px-2 md:px-4 py-1.5 rounded-4xl bg-gray-200 dark:bg-gray-800">
+                <button className={`flex items-center cursor-pointer gap-x-2 font-medium px-2 md:px-4 py-2 rounded-2xl flex-1 min-w-[90px] justify-center dark:text-gray-200 text-sm md:text-base ${tab == "criar" ? "bg-white dark:bg-gray-700 dark:text-white" : ""}`} onClick={() => {setTab("criar")}}>
+                    <CircleCheckBig size={16} className="md:w-[18px] md:h-[18px]" />
+                    <span className="hidden sm:inline">Criar Trabalho</span>
+                    <span className="sm:hidden">Criar</span>
                 </button>
-                <button className={`flex items-center cursor-pointer gap-x-3 font-medium px-4 rounded-2xl w-1/3 justify-center dark:text-gray-200 ${tab == "avaliar" ? "bg-white dark:bg-gray-700 dark:text-white" : ""}`} onClick={() => {setTab("avaliar")}}>
-                    <CircleCheckBig size={18} />
-                    Avaliar Trabalhos
+                <button className={`flex items-center cursor-pointer gap-x-2 font-medium px-2 md:px-4 py-2 rounded-2xl flex-1 min-w-[90px] justify-center dark:text-gray-200 text-sm md:text-base ${tab == "avaliar" ? "bg-white dark:bg-gray-700 dark:text-white" : ""}`} onClick={() => {setTab("avaliar")}}>
+                    <CircleCheckBig size={16} className="md:w-[18px] md:h-[18px]" />
+                    <span className="hidden sm:inline">Avaliar Trabalhos</span>
+                    <span className="sm:hidden">Avaliar</span>
                 </button>
-                <button className={`flex items-center cursor-pointer gap-x-3 font-medium px-4 rounded-2xl w-1/3 justify-center dark:text-gray-200 ${tab == "history" ? "bg-white dark:bg-gray-700 dark:text-white" : ""}`} onClick={() => {setTab("history")}}>
-                    <History size={18} />
+                <button className={`flex items-center cursor-pointer gap-x-2 font-medium px-2 md:px-4 py-2 rounded-2xl flex-1 min-w-[90px] justify-center dark:text-gray-200 text-sm md:text-base ${tab == "history" ? "bg-white dark:bg-gray-700 dark:text-white" : ""}`} onClick={() => {setTab("history")}}>
+                    <History size={16} className="md:w-[18px] md:h-[18px]" />
                     Histórico
                 </button>
-                <button className={`flex items-center cursor-pointer gap-x-3 font-medium px-4 rounded-2xl w-1/3 justify-center dark:text-gray-200 ${tab == "analise" ? "bg-white dark:bg-gray-700 dark:text-white" : ""}`} onClick={() => {setTab("analise")}}>
-                    <Brain size={18} />
-                    Análise de IA
+                <button className={`flex items-center cursor-pointer gap-x-2 font-medium px-2 md:px-4 py-2 rounded-2xl flex-1 min-w-[90px] justify-center dark:text-gray-200 text-sm md:text-base ${tab == "analise" ? "bg-white dark:bg-gray-700 dark:text-white" : ""}`} onClick={() => {setTab("analise")}}>
+                    <Brain size={16} className="md:w-[18px] md:h-[18px]" />
+                    <span className="hidden sm:inline">Análise de</span> IA
                 </button>
             </section>
 

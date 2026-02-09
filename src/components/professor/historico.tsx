@@ -30,9 +30,9 @@ const HistoricoTrabalhos = (): React.ReactElement => {
     }, []);
 
     return (
-        <div className="border-gray-200 dark:border-gray-700 border rounded-lg p-6 dark:bg-gray-800">
-            <h2 className="text-[18px] font-semibold mb-1.5 dark:text-white">Histórico de Avaliações</h2>
-            <p className="dark:text-gray-300">
+        <div className="border-gray-200 dark:border-gray-700 border rounded-lg p-4 md:p-6 dark:bg-gray-800">
+            <h2 className="text-[16px] md:text-[18px] font-semibold mb-1.5 dark:text-white">Histórico de Avaliações</h2>
+            <p className="dark:text-gray-300 text-sm md:text-base">
                 {entregas.length} trabalho(s) avaliado(s) por você.
             </p>
             <div className="mt-4">
@@ -47,15 +47,15 @@ const HistoricoTrabalhos = (): React.ReactElement => {
                 ) : (
                     <ul>
                         {entregas.map((entrega) => (
-                            <li key={entrega._id} className="border border-gray-200 dark:border-gray-700 p-4 rounded-lg mb-4 flex flex-col gap-2 dark:bg-gray-900">
-                                <div className="flex items-center justify-between">
-                                    <h3 className="font-medium text-[18px] dark:text-white flex items-center gap-2">
+                            <li key={entrega._id} className="border border-gray-200 dark:border-gray-700 p-3 md:p-4 rounded-lg mb-4 flex flex-col gap-2 dark:bg-gray-900">
+                                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                                    <h3 className="font-medium text-[16px] md:text-[18px] dark:text-white flex items-center gap-2">
                                         {entrega.trabalhoTitulo}
                                         {entrega.arquivoUrl && (
                                             <FileText size={16} className="text-blue-600 dark:text-blue-400" />
                                         )}
                                     </h3>
-                                    <div className="flex gap-2">
+                                    <div className="flex flex-wrap gap-2">
                                         {entrega.arquivoUrl && (
                                             <a
                                                 href={entrega.arquivoUrl}

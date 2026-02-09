@@ -114,12 +114,12 @@ const CriarTrabalho = (): React.ReactElement => {
     };
 
     return (
-        <div className="flex w-full justify-between gap-x-6 mt-4">
-            <div className="w-1/2 border border-gray-200 rounded-lg p-4 dark:bg-gray-900 dark:border-gray-700">
-                <h2 className="text-[18px] font-semibold mb-1.5 dark:text-white">
+        <div className="flex flex-col md:flex-row w-full justify-between gap-6 mt-4">
+            <div className="w-full md:w-1/2 border border-gray-200 rounded-lg p-4 dark:bg-gray-900 dark:border-gray-700">
+                <h2 className="text-[16px] md:text-[18px] font-semibold mb-1.5 dark:text-white">
                     {editandoId ? "Editar Trabalho" : "Criar Novo Trabalho"}
                 </h2>
-                <p className="dark:text-gray-300">
+                <p className="dark:text-gray-300 text-sm md:text-base">
                     {editandoId ? "Atualize as informações do trabalho" : "Crie e encaminhe um trabalho para seus alunos"}
                 </p>
                 <form onSubmit={handleCriarTrabalho} className="mt-4">
@@ -175,11 +175,11 @@ const CriarTrabalho = (): React.ReactElement => {
                     )}
                 </form>
             </div>
-            <div className="w-1/2 border border-gray-200 rounded-lg p-4 dark:bg-gray-900 dark:border-gray-700">
-                <h2 className="text-[18px] font-semibold mb-1.5 dark:text-white">
+            <div className="w-full md:w-1/2 border border-gray-200 rounded-lg p-4 dark:bg-gray-900 dark:border-gray-700">
+                <h2 className="text-[16px] md:text-[18px] font-semibold mb-1.5 dark:text-white">
                     Trabalhos Criados
                 </h2>
-                <p className="mb-6 dark:text-gray-300">
+                <p className="mb-6 dark:text-gray-300 text-sm md:text-base">
                     {loading ? "Carregando..." : `${trabalhos.length} trabalho(s) encaminhado(s) para os alunos`}
                 </p>
                 <ul className="mt-4 max-h-125 overflow-y-auto">
@@ -189,14 +189,14 @@ const CriarTrabalho = (): React.ReactElement => {
                         </p>
                     ) : (
                         trabalhos.map((trabalho) => (
-                            <li key={trabalho._id} className="mb-4 border border-gray-200 rounded-lg p-4 dark:bg-gray-800 dark:border-gray-700">
-                                <h2 className="text-[18px] font-medium mb-2 dark:text-white">
+                            <li key={trabalho._id} className="mb-4 border border-gray-200 rounded-lg p-3 md:p-4 dark:bg-gray-800 dark:border-gray-700">
+                                <h2 className="text-[16px] md:text-[18px] font-medium mb-2 dark:text-white">
                                     {trabalho.titulo}
                                 </h2>
-                                <p className="mb-4 text-gray-700 dark:text-gray-300">
+                                <p className="mb-4 text-gray-700 dark:text-gray-300 text-sm md:text-base">
                                     {trabalho.descricao}
                                 </p>
-                                <div className="flex mb-4 text-[14px] gap-x-4 text-gray-600 dark:text-gray-400">
+                                <div className="flex flex-col md:flex-row mb-4 text-[13px] md:text-[14px] gap-2 md:gap-x-4 text-gray-600 dark:text-gray-400">
                                     <p className="flex items-center gap-x-2">
                                         <CloudUpload size={16} />
                                         Criado: {formatarData(trabalho.dataCriacao)}
@@ -206,7 +206,7 @@ const CriarTrabalho = (): React.ReactElement => {
                                         Entrega: {formatarData(trabalho.dataEntrega)}
                                     </p>
                                 </div>
-                                <div className="flex gap-x-2">
+                                <div className="flex flex-col sm:flex-row gap-2">
                                     <button
                                         onClick={() => handleEditarTrabalho(trabalho)}
                                         className="flex-1 px-4 py-0.5 border border-blue-500 text-blue-500 rounded hover:bg-blue-50 font-medium dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/20 flex items-center justify-center gap-x-2"

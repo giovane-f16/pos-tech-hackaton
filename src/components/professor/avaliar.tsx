@@ -121,10 +121,10 @@ const AvaliarTrabalho = (): React.ReactElement => {
     }
 
     return (
-        <div className="flex w-full justify-between gap-x-6 mt-4">
-            <div className="w-1/2 border border-gray-200 rounded-lg p-4 dark:bg-gray-900 dark:border-gray-700">
-                <h2 className="text-[18px] font-semibold mb-1.5 dark:text-white">Avaliar Trabalhos</h2>
-                <p className="dark:text-gray-300">{entregas.length} trabalho(s) aguardando avaliação</p>
+        <div className="flex flex-col md:flex-row w-full justify-between gap-6 mt-4">
+            <div className="w-full md:w-1/2 border border-gray-200 rounded-lg p-4 dark:bg-gray-900 dark:border-gray-700">
+                <h2 className="text-[16px] md:text-[18px] font-semibold mb-1.5 dark:text-white">Avaliar Trabalhos</h2>
+                <p className="dark:text-gray-300 text-sm md:text-base">{entregas.length} trabalho(s) aguardando avaliação</p>
                 <ul className="mt-4">
                     {entregas.length === 0 ? (
                         <li className="text-gray-500 dark:text-gray-400">Nenhum trabalho para avaliar no momento.</li>
@@ -132,7 +132,7 @@ const AvaliarTrabalho = (): React.ReactElement => {
                         entregas.map((entrega) => (
                             <li
                                 key={entrega._id}
-                                className={`mb-4 border rounded-lg p-4 transition-all duration-200 cursor-pointer ${
+                                className={`mb-4 border rounded-lg p-3 md:p-4 transition-all duration-200 cursor-pointer ${
                                     entregaSelecionada?._id === entrega._id
                                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 shadow-md'
                                         : 'border-gray-200 dark:bg-gray-800 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
@@ -141,7 +141,7 @@ const AvaliarTrabalho = (): React.ReactElement => {
                             >
                                 <div className="flex items-start justify-between">
                                     <div className="flex-1">
-                                        <h2 className="text-[18px] font-medium dark:text-white flex items-center gap-2">
+                                        <h2 className="text-[16px] md:text-[18px] font-medium dark:text-white flex items-center gap-2">
                                             {entrega.trabalhoTitulo}
                                             {entrega.arquivoUrl && (
                                                 <FileText size={16} className="text-blue-600 dark:text-blue-400" />
@@ -193,14 +193,14 @@ const AvaliarTrabalho = (): React.ReactElement => {
                     )}
                 </ul>
             </div>
-            <div className="w-1/2 border border-gray-200 rounded-lg p-4 dark:bg-gray-900 dark:border-gray-700">
-                <h2 className="text-[18px] font-semibold mb-1.5 dark:text-white">Avaliar Trabalhos</h2>
+            <div className="w-full md:w-1/2 border border-gray-200 rounded-lg p-4 dark:bg-gray-900 dark:border-gray-700">
+                <h2 className="text-[16px] md:text-[18px] font-semibold mb-1.5 dark:text-white">Avaliar Trabalhos</h2>
                 {!entregaSelecionada ? (
-                    <p className="dark:text-gray-300">Selecione um trabalho para avaliar.</p>
+                    <p className="dark:text-gray-300 text-sm md:text-base">Selecione um trabalho para avaliar.</p>
                 ) : (
                     <>
-                    <p className="mb-2">{entregaSelecionada.trabalhoTitulo}</p>
-                    <p className="mb-6">Título: {entregaSelecionada.titulo}</p>
+                    <p className="mb-2 text-sm md:text-base">{entregaSelecionada.trabalhoTitulo}</p>
+                    <p className="mb-6 text-sm md:text-base">Título: {entregaSelecionada.titulo}</p>
                     <div className="bg-gray-200 p-2 rounded dark:bg-gray-800">
                         <p><strong>Aluno:</strong> {entregaSelecionada.alunoNome}</p>
                         <p><strong>Data Recebida:</strong> {formatarData(entregaSelecionada.dataRecebimento)}</p>

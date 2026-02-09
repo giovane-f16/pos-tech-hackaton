@@ -91,20 +91,20 @@ const AnalisarComIA = (): React.ReactElement => {
     };
 
     return (
-        <div className="border-gray-200 dark:border-gray-700 border rounded-lg p-6 dark:bg-gray-800">
-            <h2 className="text-[18px] font-semibold mb-1.5 dark:text-white">Ferramenta de Análise de IA</h2>
-            <p className="dark:text-gray-300">Análise de uso de IA nos trabalhos dos alunos</p>
-            <div className="p-4 mt-4 bg-blue-50 border border-blue-200 rounded-lg text-blue-800 flex gap-x-2 dark:bg-blue-200">
-                <CircleAlert className="" />
+        <div className="border-gray-200 dark:border-gray-700 border rounded-lg p-4 md:p-6 dark:bg-gray-800">
+            <h2 className="text-[16px] md:text-[18px] font-semibold mb-1.5 dark:text-white">Ferramenta de Análise de IA</h2>
+            <p className="dark:text-gray-300 text-sm md:text-base">Análise de uso de IA nos trabalhos dos alunos</p>
+            <div className="p-3 md:p-4 mt-4 bg-blue-50 border border-blue-200 rounded-lg text-blue-800 flex gap-x-2 dark:bg-blue-200">
+                <CircleAlert className="shrink-0" />
                 <div>
-                    <h2 className="flex items-center gap-2 mb-2 font-semibold">
+                    <h2 className="flex items-center gap-2 mb-2 font-semibold text-sm md:text-base">
                         Como funciona a análise de IA
                     </h2>
-                    <p>Nossa ferramenta analisa o texto do trabalho e identifica padrões característicos de conteúdo gerado por IA, fornecendo uma estimativa percentual do uso de IA.</p>
+                    <p className="text-sm md:text-base">Nossa ferramenta analisa o texto do trabalho e identifica padrões característicos de conteúdo gerado por IA, fornecendo uma estimativa percentual do uso de IA.</p>
                 </div>
             </div>
             <div className="mt-6">
-                <h3 className="text-[18px] font-medium dark:text-white">Trabalhos analisados</h3>
+                <h3 className="text-[16px] md:text-[18px] font-medium dark:text-white">Trabalhos analisados</h3>
                 <div className="mt-4">
                     {carregando ? (
                         <div className="flex items-center justify-center py-8">
@@ -118,10 +118,10 @@ const AnalisarComIA = (): React.ReactElement => {
                     ) : (
                         <ul>
                             {entregas.map((entrega) => (
-                                <li key={entrega._id} className="border border-gray-200 dark:border-gray-700 p-4 rounded-lg mb-4 flex flex-col gap-2 dark:bg-gray-900">
-                                    <div className="flex items-center justify-between">
+                                <li key={entrega._id} className="border border-gray-200 dark:border-gray-700 p-3 md:p-4 rounded-lg mb-4 flex flex-col gap-2 dark:bg-gray-900">
+                                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
                                         <div className="flex-1">
-                                            <h3 className="font-medium text-[18px] dark:text-white flex items-center gap-2">
+                                            <h3 className="font-medium text-[16px] md:text-[18px] dark:text-white flex items-center gap-2">
                                                 {entrega.trabalhoTitulo}
                                                 {entrega.arquivoUrl && (
                                                     <FileText size={16} className="text-blue-600 dark:text-blue-400" />
@@ -136,7 +136,7 @@ const AnalisarComIA = (): React.ReactElement => {
                                                 </p>
                                             )}
                                         </div>
-                                        <div className="flex gap-2">
+                                        <div className="flex flex-wrap gap-2">
                                             {entrega.arquivoUrl && (
                                                 <a
                                                     href={entrega.arquivoUrl}
