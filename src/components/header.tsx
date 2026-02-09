@@ -17,14 +17,17 @@ const Header = ({ nome, tipoUsuario, theme }: HeaderProps) => {
     const atualizarLink = () => {
         if (!tipoUsuario) {
             setLink("/");
+            return;
         }
 
         if (window.location.pathname === "/") {
             setLink(`/${tipoUsuario}`);
+            return;
         }
 
         if (window.location.pathname !== "/") {
             setLink("/");
+            return;
         }
     }
 
