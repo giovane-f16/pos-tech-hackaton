@@ -77,7 +77,15 @@ const Historico = () => {
                                     {entrega.nota ? (
                                         <>
                                             <span className="bg-green-100 dark:bg-green-900 px-1.5 py-1 text-[12px] rounded-xl text-green-900 dark:text-green-100">Avaliado</span>
-                                            <span className="font-medium text-green-600 dark:text-green-400 text-[14px]">Nota: {entrega.nota}/10</span>
+                                            <span className={`font-medium text-[14px] ${
+                                                entrega.nota >= 7
+                                                    ? 'text-green-600 dark:text-green-400'
+                                                    : entrega.nota >= 5
+                                                    ? 'text-yellow-600 dark:text-yellow-400'
+                                                    : 'text-red-600 dark:text-red-400'
+                                            }`}>
+                                                Nota: {entrega.nota}/10
+                                            </span>
                                         </>
                                     ) : (
                                         <span className="bg-yellow-100 dark:bg-yellow-900 px-1.5 py-1 text-[12px] rounded-xl text-yellow-900 dark:text-yellow-100">

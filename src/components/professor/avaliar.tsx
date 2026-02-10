@@ -154,8 +154,17 @@ const AvaliarTrabalho = (): React.ReactElement => {
                                         <p className="text-gray-600 dark:text-gray-400 text-sm">Data limite: {formatarData(entrega.dataLimiteDaEntrega)}</p>
                                         {entrega.nota && entrega.dataAvaliado && (
                                             <>
-                                            <p className="text-green-600 dark:text-green-400 text-sm font-medium mt-1">
-                                                ✓ Avaliado - Nota: {entrega.nota} <span className="text-black dark:text-white">Avaliado em {formatarData(entrega.dataAvaliado)}</span>
+                                            <p className="text-sm font-medium mt-1">
+                                                <span className={`${
+                                                    entrega.nota >= 7
+                                                        ? 'text-green-600 dark:text-green-400'
+                                                        : entrega.nota >= 5
+                                                        ? 'text-yellow-600 dark:text-yellow-400'
+                                                        : 'text-red-600 dark:text-red-400'
+                                                }`}>
+                                                    ✓ Avaliado - Nota: {entrega.nota}
+                                                </span>
+                                                {' '}<span className="text-black dark:text-white">Avaliado em {formatarData(entrega.dataAvaliado)}</span>
                                             </p>
                                             </>
                                         )}

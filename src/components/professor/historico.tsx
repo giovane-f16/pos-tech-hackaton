@@ -74,7 +74,17 @@ const HistoricoTrabalhos = (): React.ReactElement => {
                                 <p className="text-sm text-gray-600 dark:text-gray-400">Aluno: {entrega.alunoNome}</p>
                                 <p className="text-sm text-gray-600 dark:text-gray-400">Avaliado em: {entrega.dataAvaliado ? formatarData(entrega.dataAvaliado) : 'Não avaliado'}</p>
                                 <div className="flex items-center gap-2">
-                                    <span className="font-medium text-green-600 dark:text-green-400 text-[14px]">Nota: {entrega.nota}/10</span>
+                                    {entrega.nota && (
+                                        <span className={`font-medium text-[14px] ${
+                                        entrega.nota >= 7
+                                            ? 'text-green-600 dark:text-green-400'
+                                            : entrega.nota >= 5
+                                            ? 'text-yellow-600 dark:text-yellow-400'
+                                            : 'text-red-600 dark:text-red-400'
+                                        }`}>
+                                            Nota: {entrega.nota}/10
+                                        </span>
+                                    )}
                                     {entrega.porcentagemIa !== null && entrega.porcentagemIa !== undefined && (
                                         <span className="px-2 py-0.5 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded text-[12px] font-medium">
                                             IA: {entrega.porcentagemIa}%
