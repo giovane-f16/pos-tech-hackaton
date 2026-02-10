@@ -154,7 +154,8 @@ const CriarTrabalho = (): React.ReactElement => {
                     </label>
                     <input
                         type="date"
-                        className="border border-gray-300 dark:border-gray-600 rounded-md p-2 w-full border-input bg-gray-100 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-500"
+                        className="border border-gray-300 dark:border-gray-600 rounded-md p-2 w-full max-w-full border-input bg-gray-100 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-500"
+                        style={{ WebkitAppearance: "none", appearance: "none" }}
                         value={dataEntrega}
                         onChange={(e) => setDataEntrega(e.target.value)}
                         required
