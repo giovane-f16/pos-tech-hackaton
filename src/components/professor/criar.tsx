@@ -102,7 +102,9 @@ const CriarTrabalho = (): React.ReactElement => {
     const handleEditarTrabalho = (trabalho: interfaceTrabalho) => {
         setTitulo(trabalho.titulo);
         setDescricao(trabalho.descricao);
-        setDataEntrega(trabalho.dataEntrega);
+        // Extrai apenas YYYY-MM-DD para o input type="date"
+        const dataFormatada = trabalho.dataEntrega.split('T')[0];
+        setDataEntrega(dataFormatada);
         setEditandoId(trabalho._id);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
