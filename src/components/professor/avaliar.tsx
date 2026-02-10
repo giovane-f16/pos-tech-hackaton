@@ -24,7 +24,8 @@ const AvaliarTrabalho = (): React.ReactElement => {
                 return;
             }
             const data = await response.json();
-            setEntregas(data);
+            const entregasPendentes = data.filter((entrega: Entrega) => entrega.nota === null);
+            setEntregas(entregasPendentes);
         } catch (error) {
             console.error("Erro ao buscar entregas:", error);
         }
