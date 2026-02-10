@@ -16,6 +16,7 @@ const AvaliarTrabalho = (): React.ReactElement => {
     const [entregas, setEntregas] = useState<Entrega[]>([]);
     const [analiseIA, setAnaliseIA] = useState<AnaliseIA | null>(null);
     const [analisando, setAnalisando] = useState<boolean>(false);
+    const [entregasPendentes, setEntregasPendentes] = useState<number>(0);
 
     const getEntregas = async () => {
         try {
@@ -24,8 +25,9 @@ const AvaliarTrabalho = (): React.ReactElement => {
                 return;
             }
             const data = await response.json();
-            const entregasPendentes = data.filter((entrega: Entrega) => entrega.nota === null);
-            setEntregas(entregasPendentes);
+            setEntregas(data);
+            const pendentes = data.filter((entrega: Entrega) => entrega.nota === null || entrega.nota === undefined).length;
+            setEntregasPendentes(pendentes);
         } catch (error) {
             console.error("Erro ao buscar entregas:", error);
         }
@@ -125,7 +127,7 @@ const AvaliarTrabalho = (): React.ReactElement => {
         <div className="flex flex-col md:flex-row w-full justify-between gap-6 mt-4">
             <div className="w-full md:w-1/2 border border-gray-200 rounded-lg p-4 dark:bg-gray-900 dark:border-gray-700">
                 <h2 className="text-[16px] md:text-[18px] font-semibold mb-1.5 dark:text-white">Avaliar Trabalhos</h2>
-                <p className="dark:text-gray-300 text-sm md:text-base">{entregas.length} trabalho(s) aguardando avaliação</p>
+                <p className="dark:text-gray-300 text-sm md:text-base">{entregasPendentes} trabalho(s) aguardando avaliação</p>
                 <ul className="mt-4">
                     {entregas.length === 0 ? (
                         <li className="text-gray-500 dark:text-gray-400">Nenhum trabalho para avaliar no momento.</li>
