@@ -33,6 +33,7 @@ const CriarTrabalho = (): React.ReactElement => {
         e.preventDefault();
 
         try {
+            let dataEntregaformatada = new Date(dataEntrega).toISOString();
             if (editandoId) {
                 // Atualizar trabalho existente
                 const response = await fetch(`/api/trabalhos/${editandoId}`, {
@@ -40,7 +41,7 @@ const CriarTrabalho = (): React.ReactElement => {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ titulo, descricao, dataEntrega }),
+                    body: JSON.stringify({ titulo, descricao, dataEntrega: dataEntregaformatada }),
                 });
 
                 if (!response.ok) {
@@ -57,7 +58,7 @@ const CriarTrabalho = (): React.ReactElement => {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ titulo, descricao, dataEntrega }),
+                    body: JSON.stringify({ titulo, descricao, dataEntrega: dataEntregaformatada }),
                 });
 
                 if (!response.ok) {
