@@ -68,9 +68,6 @@ const HistoricoTrabalhos = (): React.ReactElement => {
                                                 <ExternalLink size={12} />
                                             </a>
                                         )}
-                                        <button className="border border-gray-200 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded px-4 py-1 cursor-pointer flex items-center justify-center gap-2 font-medium text-[12px] dark:text-gray-200">
-                                            Ver Detalhes
-                                        </button>
                                     </div>
                                 </div>
                                 <p className="text-sm text-gray-700 dark:text-gray-300">Título da entrega: {entrega.titulo}</p>
