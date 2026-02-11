@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# **<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap size-12 text-blue-600"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg> Aprendia**
 
-## Getting Started
+Plataforma Educacional de criação, entrega e avaliação de Trabalhos com base em **Inteligência Artificial** para Alunos e Professores.
 
-First, run the development server:
+## 📑 Sobre o projeto
+Plataforma desenvolvida em **Next.js** com **React**, possui os recursos de:
+* Autenticação de Alunos e Professores
+* Criação, Entrega e Avaliação de Trabalhos
+* Integração com Inteligência Artificial
+* Layout responsivo e Dark Mode para todos os dispositivos
+* Persistência dos dados enviados
 
+## 📋 Requisitos
+1. Instância do MongoDB Atlas para armazenamento dos dados
+  >  https://www.mongodb.com/products/platform/atlas-database
+2. Chave Auth Secret do NextAuth para autenticação
+  > https://next-auth.js.org/configuration/options#secret
+3. Chave de API do OpenAI (ou qualquer outra plataforma) para integração com a Inteligência Artificial
+  > https://platform.openai.com/account/api-keys
+4. Docker para rodar a aplicação em ambiente de desenvolvimento
+  > https://www.docker.com/get-started
+
+## 🚀 Como rodar o projeto
+1. Clone o repositório:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/giovane-f16/pos-tech-hackaton.git
 ```
+2. Crie o arquivo **.env** e configure as variáveis de ambiente com base no arquivo [.env.example](./.env.example)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Suba a aplicação usando Docker:
+```bash
+docker-compose up -d --build
+```
+4. Acesse a aplicação em [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📂 Estrutura
 
-## Learn More
+```
+src/
+├── app/
+│   ├── layout.tsx     # Layout principal
+│   ├── page.tsx       # Página inicial (Home)
+│   ├── globals.css    # Estilos globais
+│   ├── aluno/         # Área do aluno
+│   ├── api/           # Rotas da API
+│   ├── auth/          # Autenticação
+│   └── professor/     # Área do professor
+├── components/        # Componentes reutilizáveis
+├── providers/         # Lógica de negócio e contextos
+└── types/             # Definições de tipos TypeScript
+```
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🤖 Inteligência Artificial
+Para saber detalhadamente sobre o **Assistente de Correção de Trabalhos**, acesse a [documentação da IA.](./ANALISE_IA.md)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Para saber detalhadamente sobre a **Assistente para auxílio de alunos**, acesse a [documentação da IA.](./ASSISTENTE_IA.md)
