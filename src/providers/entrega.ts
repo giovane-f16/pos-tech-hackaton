@@ -52,7 +52,10 @@ class EntregaProvider {
         return new Promise(async (resolve, reject) => {
             try {
                 const entregasCollection = await database.getEntregasCollection();
-                const entregas = await entregasCollection.find().toArray();
+                const entregas = await entregasCollection
+                    .find()
+                    .sort({ dataRecebimento: -1, _id: -1 })
+                    .toArray();
                 resolve(entregas as unknown as Entrega[]);
             } catch (error) {
                 reject(`Erro ao buscar entregas: ${error}`);
@@ -78,7 +81,10 @@ class EntregaProvider {
             try {
                 const entregasCollection = await database.getEntregasCollection();
                 const objectId = new ObjectId(trabalhoId);
-                const entregas = await entregasCollection.find({ trabalhoId: objectId }).toArray();
+                const entregas = await entregasCollection
+                    .find({ trabalhoId: objectId })
+                    .sort({ dataRecebimento: -1, _id: -1 })
+                    .toArray();
                 resolve(entregas as unknown as Entrega[]);
             } catch (error) {
                 reject(`Erro ao buscar entregas por ID do trabalho: ${error}`);
@@ -91,7 +97,10 @@ class EntregaProvider {
             try {
                 const entregasCollection = await database.getEntregasCollection();
                 const objectId = new ObjectId(alunoId);
-                const entregas = await entregasCollection.find({ alunoId: objectId }).toArray();
+                const entregas = await entregasCollection
+                    .find({ alunoId: objectId })
+                    .sort({ dataRecebimento: -1, _id: -1 })
+                    .toArray();
                 resolve(entregas as unknown as Entrega[]);
             } catch (error) {
                 reject(`Erro ao buscar entregas por ID do aluno: ${error}`);

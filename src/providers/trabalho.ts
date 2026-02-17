@@ -31,7 +31,10 @@ class Trabalho {
         return new Promise(async (resolve, reject) => {
             try {
                 const trabalhosCollection = await database.getTrabalhosCollection();
-                const trabalhos = await trabalhosCollection.find().toArray();
+                const trabalhos = await trabalhosCollection
+                    .find()
+                    .sort({ dataCriacao: -1, _id: -1 })
+                    .toArray();
                 resolve(trabalhos as unknown as interfaceTrabalho[]);
             } catch (error) {
                 reject(`Erro ao buscar trabalhos: ${error}`);
