@@ -29,7 +29,7 @@ const ProfessorPage = () => {
                 </button>
                 <button className={`flex items-center cursor-pointer gap-x-2 font-medium px-2 md:px-4 py-2 rounded-2xl flex-1 min-w-[90px] justify-center dark:text-gray-200 text-sm md:text-base ${tab == "analise" ? "bg-white dark:bg-gray-700 dark:text-white" : ""}`} onClick={() => {setTab("analise")}}>
                     <Brain size={16} className="md:w-[18px] md:h-[18px]" />
-                    <span className="hidden sm:inline">Análise de</span> IA
+                    Análise de IA
                 </button>
             </section>
 

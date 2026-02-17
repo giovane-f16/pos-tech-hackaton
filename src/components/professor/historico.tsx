@@ -68,16 +68,23 @@ const HistoricoTrabalhos = (): React.ReactElement => {
                                                 <ExternalLink size={12} />
                                             </a>
                                         )}
-                                        <button className="border border-gray-200 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded px-4 py-1 cursor-pointer flex items-center justify-center gap-2 font-medium text-[12px] dark:text-gray-200">
-                                            Ver Detalhes
-                                        </button>
                                     </div>
                                 </div>
                                 <p className="text-sm text-gray-700 dark:text-gray-300">Título da entrega: {entrega.titulo}</p>
                                 <p className="text-sm text-gray-600 dark:text-gray-400">Aluno: {entrega.alunoNome}</p>
                                 <p className="text-sm text-gray-600 dark:text-gray-400">Avaliado em: {entrega.dataAvaliado ? formatarData(entrega.dataAvaliado) : 'Não avaliado'}</p>
                                 <div className="flex items-center gap-2">
-                                    <span className="font-medium text-green-600 dark:text-green-400 text-[14px]">Nota: {entrega.nota}/10</span>
+                                    {entrega.nota && (
+                                        <span className={`font-medium text-[14px] ${
+                                        entrega.nota >= 7
+                                            ? 'text-green-600 dark:text-green-400'
+                                            : entrega.nota >= 5
+                                            ? 'text-yellow-600 dark:text-yellow-400'
+                                            : 'text-red-600 dark:text-red-400'
+                                        }`}>
+                                            Nota: {entrega.nota}/10
+                                        </span>
+                                    )}
                                     {entrega.porcentagemIa !== null && entrega.porcentagemIa !== undefined && (
                                         <span className="px-2 py-0.5 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded text-[12px] font-medium">
                                             IA: {entrega.porcentagemIa}%

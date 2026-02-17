@@ -33,6 +33,7 @@ const CriarTrabalho = (): React.ReactElement => {
         e.preventDefault();
 
         try {
+            let dataEntregaformatada = new Date(dataEntrega).toISOString();
             if (editandoId) {
                 // Atualizar trabalho existente
                 const response = await fetch(`/api/trabalhos/${editandoId}`, {
@@ -40,7 +41,7 @@ const CriarTrabalho = (): React.ReactElement => {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ titulo, descricao, dataEntrega }),
+                    body: JSON.stringify({ titulo, descricao, dataEntrega: dataEntregaformatada }),
                 });
 
                 if (!response.ok) {
@@ -57,7 +58,7 @@ const CriarTrabalho = (): React.ReactElement => {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ titulo, descricao, dataEntrega }),
+                    body: JSON.stringify({ titulo, descricao, dataEntrega: dataEntregaformatada }),
                 });
 
                 if (!response.ok) {
@@ -101,7 +102,9 @@ const CriarTrabalho = (): React.ReactElement => {
     const handleEditarTrabalho = (trabalho: interfaceTrabalho) => {
         setTitulo(trabalho.titulo);
         setDescricao(trabalho.descricao);
-        setDataEntrega(trabalho.dataEntrega);
+        // Extrai apenas YYYY-MM-DD para o input type="date"
+        const dataFormatada = trabalho.dataEntrega.split('T')[0];
+        setDataEntrega(dataFormatada);
         setEditandoId(trabalho._id);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
@@ -151,7 +154,8 @@ const CriarTrabalho = (): React.ReactElement => {
                     </label>
                     <input
                         type="date"
-                        className="border border-gray-300 dark:border-gray-600 rounded-md p-2 w-full border-input bg-gray-100 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-500"
+                        className="border border-gray-300 dark:border-gray-600 rounded-md p-2 w-full max-w-full border-input bg-gray-100 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-500"
+                        style={{ WebkitAppearance: "none", appearance: "none" }}
                         value={dataEntrega}
                         onChange={(e) => setDataEntrega(e.target.value)}
                         required

@@ -16,6 +16,7 @@ const AvaliarTrabalho = (): React.ReactElement => {
     const [entregas, setEntregas] = useState<Entrega[]>([]);
     const [analiseIA, setAnaliseIA] = useState<AnaliseIA | null>(null);
     const [analisando, setAnalisando] = useState<boolean>(false);
+    const [entregasPendentes, setEntregasPendentes] = useState<number>(0);
 
     const getEntregas = async () => {
         try {
@@ -25,6 +26,8 @@ const AvaliarTrabalho = (): React.ReactElement => {
             }
             const data = await response.json();
             setEntregas(data);
+            const pendentes = data.filter((entrega: Entrega) => entrega.nota === null || entrega.nota === undefined).length;
+            setEntregasPendentes(pendentes);
         } catch (error) {
             console.error("Erro ao buscar entregas:", error);
         }
@@ -124,7 +127,7 @@ const AvaliarTrabalho = (): React.ReactElement => {
         <div className="flex flex-col md:flex-row w-full justify-between gap-6 mt-4">
             <div className="w-full md:w-1/2 border border-gray-200 rounded-lg p-4 dark:bg-gray-900 dark:border-gray-700">
                 <h2 className="text-[16px] md:text-[18px] font-semibold mb-1.5 dark:text-white">Avaliar Trabalhos</h2>
-                <p className="dark:text-gray-300 text-sm md:text-base">{entregas.length} trabalho(s) aguardando avaliação</p>
+                <p className="dark:text-gray-300 text-sm md:text-base">{entregasPendentes} trabalho(s) aguardando avaliação</p>
                 <ul className="mt-4">
                     {entregas.length === 0 ? (
                         <li className="text-gray-500 dark:text-gray-400">Nenhum trabalho para avaliar no momento.</li>
@@ -151,8 +154,17 @@ const AvaliarTrabalho = (): React.ReactElement => {
                                         <p className="text-gray-600 dark:text-gray-400 text-sm">Data limite: {formatarData(entrega.dataLimiteDaEntrega)}</p>
                                         {entrega.nota && entrega.dataAvaliado && (
                                             <>
-                                            <p className="text-green-600 dark:text-green-400 text-sm font-medium mt-1">
-                                                ✓ Avaliado - Nota: {entrega.nota} <span className="text-black dark:text-white">Avaliado em {formatarData(entrega.dataAvaliado)}</span>
+                                            <p className="text-sm font-medium mt-1">
+                                                <span className={`${
+                                                    entrega.nota >= 7
+                                                        ? 'text-green-600 dark:text-green-400'
+                                                        : entrega.nota >= 5
+                                                        ? 'text-yellow-600 dark:text-yellow-400'
+                                                        : 'text-red-600 dark:text-red-400'
+                                                }`}>
+                                                    ✓ Avaliado - Nota: {entrega.nota}
+                                                </span>
+                                                {' '}<span className="text-black dark:text-white">Avaliado em {formatarData(entrega.dataAvaliado)}</span>
                                             </p>
                                             </>
                                         )}
