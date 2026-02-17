@@ -254,7 +254,7 @@ const AvaliarTrabalho = (): React.ReactElement => {
                                         <span className="text-white font-semibold text-sm">{analiseIA.porcentagemIa}%</span>
                                     </div>
                                 </div>
-                                <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">
+                                <p className="text-[12px] md:text-[14px] text-gray-600 dark:text-gray-400 mt-2">
                                     {analiseIA.analiseIa}
                                 </p>
                                 <div className="mt-2">

@@ -179,7 +179,7 @@ const AnalisarComIA = (): React.ReactElement => {
                                         </div>
                                     </div>
                                     {entrega.analiseIa && (
-                                        <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                                        <p className="text-[12px] md:text-[14px] text-gray-600 dark:text-gray-400 mt-1">
                                             {entrega.analiseIa}
                                         </p>
                                     )}
